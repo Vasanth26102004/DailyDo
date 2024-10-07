@@ -1,0 +1,18 @@
+.task-content{
+  height: 85vh;
+  overflow-y: hidden;
+  border: 1px solid #eee;
+}
+.task-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    text-align: left;
+    align-items: center;
+    padding: .5rem 2rem;
+}
+.task-header h4 {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: default;
+  }

@@ -1,0 +1,34 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  cursor: default;
+}
+
+.content {
+  border: 1px solid #eee;
+    width: 450px;
+    height: 93vh;
+    padding: 0 15px;
+    border-radius: 25px;
+    background: linear-gradient(180deg , #3aa3e0, #e2e2e2);
+  }
+
+button {
+  height: 40px;
+  border: 2px solid #ffffffbd;
+  box-shadow: 0 0 15px 2px #ffffffbd;
+  background-color: #6cbeee;
+  color: #fff;
+  transition: all 0.5s ease;
+  border-radius: 15px;
+}
+
+button:hover {
+  background-color: #6cbeee;
+  box-shadow: 0 0 15px 5px #6cbeee;
+  background-color: #fff;
+  color: #6cbeee;
+  transition: all 0.5s ease;
+}

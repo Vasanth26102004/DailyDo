@@ -1,0 +1,46 @@
+.home-content{
+  height: 85vh;
+  overflow-y: hidden;
+}
+.home-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 1rem .5rem 2rem;
+}
+.heading h4 {
+  margin: 20px 0;
+  font-size: 40px;
+  font-weight: 700;
+  cursor: default;
+}
+.heading p {
+  font-size: 12px;
+  cursor: default;
+}
+.progress-bar{
+  padding: 0 .5rem 1rem .5rem;
+  font-size: 20px;
+  font-weight: 700;
+}
+.progress-bar progress{
+  font-size: 20px;
+  margin-left: 10px;
+}
+.add-task button {
+  width: 120px;
+}
+.my-tasks{
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  padding: 0 1rem;
+}
+.my-task-btn{
+  width: 100px;
+}
+.task-noelement{
+  font-size: 22px;
+  margin-top: 20px;
+}
