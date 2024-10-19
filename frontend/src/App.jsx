@@ -6,7 +6,7 @@ import Navbar from "./pages/Navbar/Navbar.jsx";
 import Profile from './pages/Profile/Profile.jsx';
 import Setting from './pages/Setting/Setting.jsx';
 import { TaskListProvider } from "./pages/TaskListContext/TaskListContext.jsx";
-import { BrowserRouter as Route, Routes,} from "react-router-dom";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
 
 function App() {
   return (
