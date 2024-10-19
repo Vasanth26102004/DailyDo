@@ -25,7 +25,7 @@ const AddTask = () => {
     };
   
     try {
-      const response = await fetch("http://localhost:3000/task/addtask", {
+      const response = await fetch("https://daily-do-server.vercel.app/task/addtask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

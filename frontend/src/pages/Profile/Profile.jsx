@@ -24,7 +24,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/auth/login`, {
+      const response = await fetch(`https://daily-do-server.vercel.app/auth/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -55,7 +55,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/auth/signup`, {
+      const response = await fetch(`https://daily-do-server.vercel.app/auth/signup`, {
         method: "POST",
         headers: {
           Accept: "application/json",

@@ -10,7 +10,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const today = new Date().toISOString().split("T")[0];
-
+  
   const totalTask = tasks.filter((task) => {
     return task.date == today;
   });
@@ -25,7 +25,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3000/task/alltask", {
+        const response = await fetch("https://daily-do-server.vercel.app/task/alltask", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -53,7 +53,7 @@ const Home = () => {
   const doneTask = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/task/donetask/${id}/done`,
+        `https://daily-do-server.vercel.app/task/donetask/${id}/done`,
         {
           method: "PUT",
           headers: {
@@ -80,7 +80,7 @@ const Home = () => {
   const removeTask = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/task/deletetask/${id}`,
+        `https://daily-do-server.vercel.app/task/deletetask/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -100,10 +100,6 @@ const Home = () => {
     }
   };
 
-  if (error) {
-    return <div id="error">Error: {error}</div>;
-  }
-
   const progressPercentage = (taskDoneCount / totalTaskCount) * 100;
 
   useEffect(() => {
@@ -122,12 +118,12 @@ const Home = () => {
           <h4><img width="60px" src={logo} alt=""/>Daily Do</h4>
         </div>
       </div>
-      <div class="container">
-        <div class="row">Progress</div>
-        <div class="progress2 progress-moved"> 
-         <span class="progress-value">{progressPercentage || 0}%</span> 
+      <div className="container">
+        <div className="row">Progress</div>
+        <div className="progress2 progress-moved"> 
+         <span className="progress-value">{progressPercentage || 0}%</span> 
           <div
-            style={{ "--progress": `${progressPercentage || 0}%` }} class="progress-bar2">
+            style={{ "--progress": `${progressPercentage || 0}%` }} className="progress-bar2">
            </div>
         </div>
       </div>

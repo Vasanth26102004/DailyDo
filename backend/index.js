@@ -10,7 +10,12 @@ const PORT = ENV_VARS.PORT || 3000;
 ENV_VARS;
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type','Authorization','user-id'],
+  maxAge: 3600,
+}));
 
 // Database connection
 connectDB();
