@@ -1,37 +1,64 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./TaskDetail.css";
 import Task from "../Task/Task.jsx";
-import { TaskList } from "../TaskListContext/TaskListContext.jsx";
 
 const TaskDetail = () => {
-  const { tasks } = useContext(TaskList);
   const [taskList, setTaskList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (Array.isArray(tasks)) {
-      setTaskList(tasks);
-    }
-  }, [tasks]);
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/task/alltask", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+        });
+        const data = await response.json(); 
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        console.log(data.tasks.length);
+        setTaskList(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTasks();
+  }, []);
+
+  if (loading) {
+    return <div>Loading tasks...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="task-content">
       <div className="task-header">
-      <h4>Task List</h4>
+        <h4>Task List</h4>
       </div>
       <div className="task-element">
-        {taskList.length > 0 ? (
-            ( taskList.map((item, i) => (
-              <div className="task-eachelement">
-            <Task
-              key={i}
-              id={item.id}
-              title={item.title}
-              description={item.description}
-              deadline={`Date:${item.date} Time:${item.time}`}
-            />
+        {taskList.tasks.length > 0 ? (
+          taskList.tasks.map((item) => (
+            <div className="task-eachelement" key={item.id}>
+              <Task
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                deadline={`Date:${item.date} Time:${item.time}`}
+              />
             </div>
-            ) ) )
+          ))
         ) : (
           <div className="task-noelement">
             <p>No tasks available</p>

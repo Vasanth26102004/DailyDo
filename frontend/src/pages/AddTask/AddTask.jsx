@@ -4,7 +4,6 @@ import { TaskList } from "../TaskListContext/TaskListContext.jsx";
 
 const AddTask = () => {
   const { tasks, setTasks } = useContext(TaskList);
-
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
@@ -14,44 +13,42 @@ const AddTask = () => {
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setNewTask((prevTask) => ({
-      ...prevTask,
-      [name]: value,
-    }));
+    setNewTask((prevTask) => Object.assign({}, prevTask, { [name]: value }));
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const taskWithDateTime = {
       ...newTask,
-      dateTime: `${newTask.date}T${newTask.time}.000Z`,
-      userId
     };
-    
-    const userId = localStorage.getItem("userId"); 
-
+  
     try {
       const response = await fetch("http://localhost:3000/task/addtask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "user-id": userId, 
+          "user-id": localStorage.getItem("user-id")
         },
-        body: JSON.stringify(taskWithDateTime), 
+        body: JSON.stringify(taskWithDateTime),
       });
-
+  
       if (response.ok) {
         const savedTask = await response.json();
-        setTasks((prevTasks) => [...prevTasks, savedTask]); 
+        setTasks((prevTasks) => {
+          if (Array.isArray(prevTasks)) {
+            return [...prevTasks, savedTask];
+          } else {
+            return [savedTask];
+          }
+        });
         setNewTask({
           title: "",
           description: "",
           date: "",
           time: "",
         });
-      } else {
-        console.error("Failed to add task");
       }
     } catch (error) {
       console.error("Error occurred:", error);

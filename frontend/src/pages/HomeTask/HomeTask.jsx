@@ -53,11 +53,11 @@ const HomeTask = (props) => {
     let image = images[Math.floor(Math.random() * images.length)];
     return image;
   };
-
+  
   const taskDone = () => {
-    setIsActive(true); 
-    if (props.onDone) {
+    if (props.onDone ) {
       props.onDone(props.id); 
+      setIsActive(true); 
     }
   };
 
@@ -68,7 +68,7 @@ const HomeTask = (props) => {
   };
 
   return (
-    <div id={`task-${props.id}`} className={`hometask ${isActive ? "active" : ""}`}>
+    <div id={`task-${props.id}`} className={`hometask ${isActive || props.done ? "active" : ""}`}>
       <img className="task-image" src={randomTask} alt="Task Icon" />
       <div className="hometask-task">
         <h3 className="hometask-title" max-width="100px">

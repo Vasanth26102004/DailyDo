@@ -9,7 +9,7 @@ const Profile = () => {
     password: "",
     email: "",
   });
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const { username, email, password } = formData;
@@ -18,36 +18,73 @@ const Profile = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const submitForm = async () => {
-    if (!email || !password || (!isLogin && !username)) {
+  const handleLogin = async () => {
+    if (!email || !password) {
       return setErrorMessage("Please fill in all required fields.");
     }
-    
-    const endpoint = isLogin ? "/auth/login" : "/auth/signup";
-    const body = isLogin ? { email, password } : { username, email, password };
 
     try {
-      const response = await fetch(`http://localhost:3000${endpoint}`, {
+      const response = await fetch(`http://localhost:3000/auth/login`, {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ email, password }),
       });
 
       const responseData = await response.json();
+
       if (responseData.success) {
         localStorage.setItem("auth-token", responseData.token);
-        localStorage.setItem("userId", responseData.user._id);
+        localStorage.setItem("user-id", responseData.user._id);
         localStorage.setItem("user-name", responseData.user.name);
-        navigate("/"); 
+        navigate("/");
       } else {
         setErrorMessage(responseData.errors || "Authentication failed.");
       }
     } catch (error) {
-      console.error(`${isLogin ? "Login" : "Signup"} Error:`, error);
+      console.error("Login Error:", error);
       setErrorMessage("An error occurred. Please try again later.");
+    }
+  };
+
+  const handleSignup = async () => {
+    if (!email || !password || !username) {
+      return setErrorMessage("Please fill in all required fields.");
+    }
+
+    try {
+      const response = await fetch(`http://localhost:3000/auth/signup`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+ console.log()
+      const responseData = await response.json();
+
+      if (responseData.success) {
+        localStorage.setItem("auth-token", responseData.token);
+        localStorage.setItem("user-id", responseData.user._id);
+        localStorage.setItem("user-name", responseData.user.name);
+        navigate("/");
+      } else {
+        setErrorMessage(responseData.errors || "Authentication failed.");
+      }
+    } catch (error) {
+      console.error("Signup Error:", error);
+      setErrorMessage("An error occurred. Please try again later.");
+    }
+  };
+
+  const submitForm = () => {
+    if (isLogin) {
+      handleLogin();
+    } else {
+      handleSignup();
     }
   };
 

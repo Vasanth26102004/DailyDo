@@ -10,10 +10,7 @@ const PORT = ENV_VARS.PORT || 3000;
 ENV_VARS;
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: "http://localhost:3001", // Your frontend URL
-  credentials: true, // Allow cookies to be sent with requests
-}));
+app.use(cors());
 
 // Database connection
 connectDB();

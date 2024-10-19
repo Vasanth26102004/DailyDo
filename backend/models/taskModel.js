@@ -20,6 +20,7 @@ const Task = mongoose.model("Task",
   description: {
     type: String,
     required: true,
+    default:" ",
   },
   date:{
     type: String,
@@ -31,7 +32,7 @@ const Task = mongoose.model("Task",
   },
   dateTime: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
   done: {
     type: Boolean,

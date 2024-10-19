@@ -5,10 +5,12 @@ const router = express.Router();
 
 // Get all tasks for a specific user// Get all tasks for a specific user
 router.get("/alltask", async (req, res) => {
-  const userId = req.headers["user-id"];  // Get userId from headers
+  const userId = req.headers["user-id"]; // Get userId from headers
 
   if (!userId) {
-    return res.status(400).json({ success: false, message: "User ID is required" });
+    return res
+      .status(400)
+      .json({ success: false, message: "User ID is required" });
   }
 
   try {
@@ -21,17 +23,30 @@ router.get("/alltask", async (req, res) => {
 
 // Add a new task for a specific user
 router.post("/addtask", async (req, res) => {
-  const userId = req.headers["user-id"];  // Get userId from headers
-  const { title, description, date, time } = req.body;
-
-  if (!userId || !title || !date || !time) {
-    return res.status(400).json({ success: false, message: "All required fields (userId, title, date, time) must be provided" });
-  }
-
   try {
-    const newTask = new Task({ userId, title, description, date, time });
+    const userId = req.headers["user-id"];
+    let { title, description, date, time } = req.body;
+
+    if (!userId || !title || !date || !time) {
+      return res.json({
+        success: false,
+        message:
+          "All required fields (userId, title, date, time) must be provided",
+      });
+    }
+
+    const newTask = new Task({
+      userId: userId,
+      title: title,
+      description: description || " ",
+      date: date,
+      time: time,
+      dateTime: `${date}T${time}:00.000Z`,
+    });
+
     await newTask.save();
-    res.status(201).json({ success: true, task: newTask });
+
+    res.status(201).json({ success: true, newTask: newTask });
   } catch (error) {
     res.status(500).json({ success: false, message: "Server Error", error });
   }
@@ -39,14 +54,16 @@ router.post("/addtask", async (req, res) => {
 
 // Mark task as done for a specific user
 router.put("/donetask/:taskId/done", async (req, res) => {
-  const userId = req.headers["user-id"];  // Get userId from headers
+  const userId = req.headers["user-id"]; // Get userId from headers
   const { taskId } = req.params;
 
   try {
     const task = await Task.findOne({ _id: taskId, userId });
 
     if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     task.done = true;
@@ -59,14 +76,16 @@ router.put("/donetask/:taskId/done", async (req, res) => {
 
 // Delete a task for a specific user
 router.delete("/deletetask/:taskId", async (req, res) => {
-  const userId = req.headers["user-id"];  // Get userId from headers
+  const userId = req.headers["user-id"]; // Get userId from headers
   const { taskId } = req.params;
 
   try {
     const task = await Task.findOneAndDelete({ _id: taskId, userId });
 
     if (!task) {
-      return res.status(404).json({ success: false, message: "Task not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
     }
 
     res.json({ success: true, message: "Task deleted successfully", task });
@@ -76,4 +95,3 @@ router.delete("/deletetask/:taskId", async (req, res) => {
 });
 
 export default router;
-

@@ -5,13 +5,17 @@
   text-align: center;
   cursor: default;
 }
+@media (max-width:480px) {
+#root {
+  margin: 0;
+  padding: 0;
+  }
+}
 
 .content {
   border: 1px solid #eee;
     width: 450px;
-    height: 93vh;
-    padding: 0 15px;
-    border-radius: 25px;
+    height: 100vh;
     background: linear-gradient(180deg , #3aa3e0, #e2e2e2);
   }
 

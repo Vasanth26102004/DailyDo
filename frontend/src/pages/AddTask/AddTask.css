@@ -1,7 +1,6 @@
 .addTask-content{
     height: 85vh;
     overflow-y: hidden;
-    border: 1px solid #eee;
 }
 .addTask-header {
   display: flex;
