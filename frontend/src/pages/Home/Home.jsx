@@ -138,7 +138,7 @@ const Home = () => {
           textColor={"#4645F6"}
         />*/
         <div>Loading...</div>
-      ) : ((User)?(<div>
+      ) : ((!User)?(<div>
         Sign up to View Details
       </div>):(
         <div className="task-element">
@@ -188,10 +188,6 @@ export const useTaskCounts = () => {
     return task.date == today && task.done === true;
   });
 
-  const totalTaskCount = totalTask.length || 0;
-  const taskCount = tasks.length || 0;
-  const taskDoneCount = taskDone.length || 0;
-
   useEffect(() => {
     const fetchTasks = async () => {
       try {
@@ -229,6 +225,10 @@ export const useTaskCounts = () => {
     };
     calculateAndSetProgress();
   }, [taskDoneCount, totalTaskCount, taskProgress, setTaskProgress]);
+
+  const totalTaskCount = totalTask.length || 0;
+  const taskCount = tasks.length || 0;
+  const taskDoneCount = taskDone.length || 0;
 
   return { totalTaskCount, taskDoneCount, taskCount };
 }
