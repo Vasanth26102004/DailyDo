@@ -11,7 +11,7 @@ const TaskDetail = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3000/task/alltask", {
+        const response = await fetch("https://daily-do-server.vercel.app/task/alltask", {
           method: "GET",
           headers: {
             Accept: "application/json",
