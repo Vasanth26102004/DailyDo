@@ -11,6 +11,8 @@ const Home = () => {
   const [error, setError] = useState(null);
   const today = new Date().toISOString().split("T")[0];
   
+  const User = localStorage.getItem("user-id")
+
   const totalTask = tasks.filter((task) => {
     return task.date == today;
   });
@@ -136,7 +138,9 @@ const Home = () => {
           textColor={"#4645F6"}
         />*/
         <div>Loading...</div>
-      ) : (
+      ) : ((User)?(<div>
+        Sign up to View Details
+      </div>):(
         <div className="task-element">
           {tasks.length > 0 ? (
             totalTask.length > 0 ? (
@@ -163,11 +167,10 @@ const Home = () => {
               <p>No tasks available</p>
             </div>
           )}
-        </div>
+        </div>)
       )}
     </div>
-  );
-};
+  )};
 
 export const useTaskCounts = () => {
   
