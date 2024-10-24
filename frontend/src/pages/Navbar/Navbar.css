@@ -1,0 +1,26 @@
+.navbar{
+    position: sticky;
+    bottom: 1px; 
+}
+.navbar:nth-child(1){
+    background-color: aqua;
+}
+.add-btn{
+    position: relative;
+    top: -20px;
+    rotate: 45deg;
+}
+.setting-icon {
+    rotate: 0deg;
+    transition: all .3s ease-in-out;
+  }
+  .setting-icon:hover{
+    transform: rotate(90deg);
+    transition: all .3s ease-in-out;
+  }
+  
+@media (max-width:480px) {
+    .navbar{
+      scale:.9;
+    }
+}

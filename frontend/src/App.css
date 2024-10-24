@@ -1,0 +1,39 @@
+#root {
+  max-width: 1280px;
+  width:100vw;
+  height:auto;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  cursor: default;
+  background: linear-gradient(180deg , #3aa3e0, #e2e2e2);
+}
+@media (max-width:480px) {
+#root {
+  margin: 0;
+  padding: 0;
+  }
+}
+
+.content {
+  min-height: 100vh;
+  height:auto;
+  }
+
+button {
+  height: 40px;
+  border: 2px solid #ffffffbd;
+  box-shadow: 0 0 15px 2px #ffffffbd;
+  background-color: #6cbeee;
+  color: #fff;
+  transition: all 0.5s ease;
+  border-radius: 15px;
+}
+
+button:hover {
+  background-color: #6cbeee;
+  box-shadow: 0 0 15px 5px #6cbeee;
+  background-color: #fff;
+  color: #6cbeee;
+  transition: all 0.5s ease;
+}

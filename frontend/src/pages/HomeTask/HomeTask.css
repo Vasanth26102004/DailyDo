@@ -1,0 +1,62 @@
+*{
+    margin: 0;
+}
+
+.hometask {
+  margin-top: 1rem;
+  border: 3px solid #ececec;
+  box-shadow: 0 0 15px 2px #a0defa;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+.hometask.active {
+  color: #ffffff49;
+  transition: all 0.3s linear;
+  text-decoration: line-through solid #c7c7c760 5px;
+}
+.task-image{
+    width: 50px;
+    height: 50px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+}
+.hometask-task {
+    margin-top: -12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    padding: .5rem 0;
+    text-align: left;   
+}
+.hometask-title {
+  max-width: 170px;
+  font-size: 28px;
+  font-weight: 600;
+  overflow: hidden;
+}
+.hometask-datetime {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+}
+.hometask-time,
+.hometask-date{
+}
+
+.hometask-btns {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.hometask button {
+  all: unset;
+  justify-content: center;
+  align-items: center;
+}

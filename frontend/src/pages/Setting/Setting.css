@@ -1,0 +1,9 @@
+.setting-content{
+  height: 95vh;
+  overflow-y: hidden;
+}
+@media (max-width:480px) {
+  .setting-content{
+    scale:.9;
+  }
+}

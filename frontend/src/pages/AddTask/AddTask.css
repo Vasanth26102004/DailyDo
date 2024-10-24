@@ -1,0 +1,72 @@
+.addTask-content{
+    height: 95vh;
+    overflow-y: hidden;
+}
+.addTask-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem 2rem;
+}
+.addTask-header h4 {
+  font-size: 20px;
+  font-weight: 700;
+  cursor: default;
+}
+.addTask-header img {
+  margin-top: 5px;
+  margin-left: 215px;
+}
+.task-input{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+.task-input p {
+  margin: 20px 0 5px 0;
+  font-size: 15;
+  font-weight: 400;
+  cursor: default;
+  margin: 1rem;
+}
+.task-input p span {
+  color: rgb(243, 59, 59);
+}
+
+.task-input input {
+  width: 316px;
+  height: 40px;
+  padding-left: 20px;
+  border: 1px solid #85b4c7;
+  border-radius: 10px;
+  outline: none;
+  color: #58bbf0;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: text;
+}
+
+#submit-button {
+  margin-top: 1rem;
+  width: 200px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.deadline{
+  width: 340px;
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
+}
+#time,
+#date {
+  width: 125px;
+}
+@media (max-width:480px) {
+  .addTask-content{
+    scale:.9;
+  }
+}
