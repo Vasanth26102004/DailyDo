@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { useNavigate } from "react-router-dom";
+import {useTaskCounts} from './../Home/Home.jsx';
 
 const Profile = () => {
+  const { totalTaskCount, taskDoneCount, taskCount } = useTaskCounts();
+
   const [isLogin, setIsLogin] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -109,6 +112,9 @@ const Profile = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("auth-token");
+    localStorage.removeItem("user-id");
+    localStorage.removeItem("user-name");
+    localStorage.removeItem("e-mail");   
     window.location.replace("/");
   };
   return (
@@ -119,7 +125,9 @@ const Profile = () => {
         <p className="userName">{userName.toUpperCase()}</p>
         <p className="email">{userEmail}</p>
         <div>
-          <p>Total Tasks:</p>
+          <p>Total Tasks:{taskCount}</p>
+          <p>Total Tasks for Today:{totalTaskCount}</p>
+          <p>Total Task Done for Today:{taskDoneCount}</p>
         </div>
         <button onClick={handleLogout}>Logout</button>
         </div>

@@ -19,8 +19,9 @@ const Home = () => {
     return task.date == today && task.done === true;
   });
 
-  const totalTaskCount = totalTask.length;
-  const taskDoneCount = taskDone.length;
+  const totalTaskCount = totalTask.length || 0;
+  const taskCount = tasks.length || 0;
+  const taskDoneCount = taskDone.length || 0;
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -167,4 +168,117 @@ const Home = () => {
     </div>
   );
 };
+
+export const useTaskCounts = () => {
+  
+  const [tasks, setTasks] = useState([]);
+  const [taskProgress, setTaskProgress] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const today = new Date().toISOString().split("T")[0];
+  
+  const totalTask = tasks.filter((task) => {
+    return task.date == today;
+  });
+
+  const taskDone = tasks.filter((task) => {
+    return task.date == today && task.done === true;
+  });
+
+  const totalTaskCount = totalTask.length || 0;
+  const taskCount = tasks.length || 0;
+  const taskDoneCount = taskDone.length || 0;
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch("https://daily-do-server.vercel.app/task/alltask", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        setTasks(data.tasks);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setTimeout(() => {
+          setLoading(false);
+        }, 5000);
+      }
+    };
+    fetchTasks();
+  }, []);
+
+  const doneTask = async (id) => {
+    try {
+      const response = await fetch(
+        `https://daily-do-server.vercel.app/task/donetask/${id}/done`,
+        {
+          method: "PUT",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task._id === id ? { ...task, done: true } : task
+        )
+      );
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const removeTask = async (id) => {
+    try {
+      const response = await fetch(
+        `https://daily-do-server.vercel.app/task/deletetask/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  const progressPercentage = (taskDoneCount / totalTaskCount) * 100;
+
+  useEffect(() => {
+    const calculateAndSetProgress = async () => {
+      for (let index = taskProgress; index <= progressPercentage; index++) {
+        setTaskProgress(index);
+      }
+    };
+    calculateAndSetProgress();
+  }, [taskDoneCount, totalTaskCount, taskProgress, setTaskProgress]);
+
+  return { totalTaskCount, taskDoneCount, taskCount };
+}
+
 export default Home;
