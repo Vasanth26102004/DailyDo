@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./TaskDetail.css";
 import Task from "../Task/Task.jsx";
-import { response } from "express";
 
 const TaskDetail = () => {
   const [taskList, setTaskList] = useState([]);
