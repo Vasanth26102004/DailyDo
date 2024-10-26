@@ -119,7 +119,7 @@ const Profile = () => {
   };
   return (
     <div className="profile-content">
-      { (userName) ? (
+      { userName && userEmail ? (
         <div className="userProfile">
         <h2 className="userProfile-pic">{getInitial() || "?"}</h2>
         <p className="userName">{userName.toUpperCase()}</p>
