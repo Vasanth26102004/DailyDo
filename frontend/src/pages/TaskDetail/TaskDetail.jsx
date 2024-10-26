@@ -22,7 +22,7 @@ const TaskDetail = () => {
         });
         const data = await response.json(); 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          console.error("Network response was not ok")
         }
         console.log(data.tasks.length);
         setTaskList(data);
@@ -49,7 +49,7 @@ const TaskDetail = () => {
         });
   
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          console.error("Network response was not ok");
         }
   
         const data = await response.json();

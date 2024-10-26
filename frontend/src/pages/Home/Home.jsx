@@ -43,7 +43,7 @@ const Home = () => {
           );
           const data = await response.json();
           if (!response.ok) {
-            throw new Error("Network response was not ok");
+            console.error("Network response was not ok");
           }
 
           setTasks(data.tasks);
@@ -101,7 +101,7 @@ const Home = () => {
       );
       const data = await response.json();
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+         console.error("Network response was not ok");
       }
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
     } catch (error) {
@@ -214,7 +214,7 @@ export const useTaskCounts = () => {
         );
         const data = await response.json();
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          console.error("Network response was not ok")
         }
         setTasks(data.tasks);
       } catch (error) {
