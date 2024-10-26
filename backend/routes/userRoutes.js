@@ -72,4 +72,26 @@ router.post("/login", async (req, res) => {
   }
 });
 
+//Profile Image
+app.post("/profile", async (req, res) => {
+  const { email, imageLink } = req.body; // Assuming email and imageLink are sent in the request body
+
+  try {
+    let user = await User.findOneAndUpdate(
+      { email },
+      { image: imageLink }, // Update the image link
+      { new: true } // Return the updated document
+    );
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User  not found" });
+    }
+
+    res.status(200).json({ success: true, user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Error saving product" });
+  }
+});
+
 export default router;

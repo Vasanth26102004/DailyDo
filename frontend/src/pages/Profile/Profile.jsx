@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { useNavigate } from "react-router-dom";
-import {useTaskCounts} from './../Home/Home.jsx';
+import { useTaskCounts } from "./../Home/Home.jsx";
 
 const Profile = () => {
   const { totalTaskCount, taskDoneCount, taskCount } = useTaskCounts();
@@ -15,12 +15,55 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const userName = localStorage.getItem("user-name");
-  const userEmail = localStorage.getItem("e-mail")
+  const userEmail = localStorage.getItem("e-mail");
 
   const { username, email, password } = formData;
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const imagehandler = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  const setProfile = async () => {
+    let responseData;
+    let email = localStorage.getItem("e-mail");
+    let formData = new FormData();
+    formData.append("product", image);
+
+    await fetch("https://daily-do-server.vercel.app/upload", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        'Content-Type': 'application/json',
+      },
+      body:{ email, formData},
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        responseData = data;
+      });
+
+    if (responseData.success) {
+      let image = responseData.image_url;
+      
+      await fetch('https://daily-do-server.vercel.app/auth/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          imageLink: image,
+        }),
+      })
+        .then((resp) => resp.json())
+        .then((data) => {
+          data.success ? alert("Profile Updated") : alert("Failed");
+        });
+    }
   };
 
   const handleLogin = async () => {
@@ -101,7 +144,7 @@ const Profile = () => {
   };
 
   const getInitial = () => {
-    console.log(userName)
+    console.log(userName);
     if (userName) {
       return userName.charAt(0).toUpperCase();
     } else {
@@ -114,22 +157,38 @@ const Profile = () => {
     localStorage.removeItem("auth-token");
     localStorage.removeItem("user-id");
     localStorage.removeItem("user-name");
-    localStorage.removeItem("e-mail");   
+    localStorage.removeItem("e-mail");
     window.location.replace("/");
   };
   return (
     <div className="profile-content">
-      { userName && userEmail ? (
+      {userName && userEmail ? (
         <div className="userProfile">
-        <h2 className="userProfile-pic">{getInitial() || "?"}</h2>
-        <p className="userName">{userName}</p>
-        <p className="email">{userEmail}</p>
-        <div>
-          <p>Total Tasks:{taskCount}</p>
-          <p>Total Tasks for Today:{totalTaskCount}</p>
-          <p>Total Task Done for Today:{taskDoneCount}</p>
-        </div>
-        <button onClick={handleLogout}>Logout</button>
+          <div className="userProfile-pic">
+            <label htmlFor="file-input">
+              <img
+                onChange={setProfile}
+                src={image ? URL.createObjectURL(image) : upload_area}
+                className="userProfile-thumnail"
+                alt=""
+              />
+            </label>
+            <input
+              onChange={imagehandler}
+              type="file"
+              name="image"
+              id="file-input"
+              hidden
+            />
+          </div>
+          <p className="userName">{userName}</p>
+          <p className="email">{userEmail}</p>
+          <div>
+            <p>Total Tasks:{taskCount}</p>
+            <p>Total Tasks for Today:{totalTaskCount}</p>
+            <p>Total Task Done for Today:{taskDoneCount}</p>
+          </div>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <div className="loginsignup-container">

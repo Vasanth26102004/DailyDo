@@ -1,72 +1,122 @@
-.addTask-content{
-    height: 95vh;
-    overflow-y: hidden;
+:root {
+  --primary-color: #58bbf0;
+  --border-color: #85b4c7;
+  --error-color: rgb(243, 59, 59);
+  --font-size-small: 0.875rem; /* 14px */
+  --font-size-medium: 1rem; /* 16px */
+  --font-size-large: 1.25rem; /* 20px */
 }
+
+.addTask-content {
+  height: auto; /* Allow height to adjust based on content */
+  overflow-y: auto; /* Allow scrolling if content exceeds height */
+  padding: 1rem; /* Add padding for better spacing */
+  transition: transform 0.3s ease;
+}
+
 .addTask-header {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: .5rem 2rem;
+  padding: 1rem; /* Increased padding */
 }
+
 .addTask-header h4 {
-  font-size: 20px;
+  font-size: var(--font-size-large);
   font-weight: 700;
-  cursor: default;
 }
+
 .addTask-header img {
-  margin-top: 5px;
-  margin-left: 215px;
+  margin-left: auto;
+  max-width: 50px; /* Limit image size */
 }
-.task-input{
+
+.task-input {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items:center;
+  align-items: stretch; /* Allow inputs to stretch */
 }
+
 .task-input p {
-  margin: 20px 0 5px 0;
-  font-size: 15;
-  font-weight: 400;
-  cursor: default;
-  margin: 1rem;
+  margin: 0.5rem 0;
+  font-size: var(--font-size-small);
 }
+
 .task-input p span {
-  color: rgb(243, 59, 59);
+  color: var(--error-color);
 }
 
 .task-input input {
-  width: 316px;
+  width: 100%;
+  max-width: 100%; /* Full width */
   height: 40px;
-  padding-left: 20px;
-  border: 1px solid #85b4c7;
+  padding: 0.5rem; /* Adjust padding */
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   outline: none;
-  color: #58bbf0;
-  font-size: 18px;
+  color: var(--primary-color);
+  font-size: var(--font-size-medium);
   font-weight: 600;
-  cursor: text;
+  transition: border-color 0.3s ease;
+}
+
+.task-input input:focus {
+  border-color: var(--primary-color);
 }
 
 #submit-button {
   margin-top: 1rem;
-  width: 200px;
-  font-size: 18px;
+  width: 100%;
+  max-width: 200px;
+  font-size: var(--font-size-medium);
   font-weight: 600;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-.deadline{
-  width: 340px;
+
+#submit-button:hover {
+  background-color: rgba(88, 187, 240, 0.1);
+}
+
+.deadline {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items:center;
+  align-items: center;
+  margin-top: 1rem; /* Add margin for spacing */
 }
+
 #time,
 #date {
-  width: 125px;
+  width: 48%; /* Use percentage for flexible widths */
 }
-@media (max-width:480px) {
-  .addTask-content{
-    scale:.9;
+
+@media (max-width: 768px) {
+  .addTask-content {
+      transform: scale(0.95);
+  }
+
+  .addTask-header img {
+      max-width: 40px; /* Adjust image size for tablets */
+  }
+
+  .task-input input,
+  #submit-button,
+  .deadline {
+      width: 100%; /* Full width on smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .addTask-content {
+      transform: scale(0.9);
+  }
+
+  .task-input p {
+      font-size: var(--font-size-small); /* Maintain small font size */
+  }
+
+  .addTask-header h4 {
+      font-size: var(--font-size-medium); /* Adjust header size */
   }
 }
