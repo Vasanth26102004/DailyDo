@@ -13,6 +13,8 @@ const Profile = () => {
     email: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [image, setImage] = useState(false);
+
   const navigate = useNavigate();
   const userName = localStorage.getItem("user-name");
   const userEmail = localStorage.getItem("e-mail");
