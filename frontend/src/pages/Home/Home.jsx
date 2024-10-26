@@ -7,7 +7,7 @@ import "./Home.css";
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [taskProgress, setTaskProgress] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const today = new Date().toISOString().split("T")[0];
 
@@ -25,8 +25,6 @@ const Home = () => {
   const taskCount = tasks.length || 0;
   const taskDoneCount = taskDone.length || 0;
 
-  if (User) {
-    setLoading(true);
     useEffect(() => {
       const fetchTasks = async () => {
         try {
@@ -57,7 +55,7 @@ const Home = () => {
       };
       fetchTasks();
     }, []);
-  }
+  
 
   const doneTask = async (id) => {
     try {
