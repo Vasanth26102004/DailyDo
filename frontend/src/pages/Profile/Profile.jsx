@@ -122,7 +122,7 @@ const Profile = () => {
       { userName && userEmail ? (
         <div className="userProfile">
         <h2 className="userProfile-pic">{getInitial() || "?"}</h2>
-        <p className="userName">{userName.toUpperCase()}</p>
+        <p className="userName">{userName}</p>
         <p className="email">{userEmail}</p>
         <div>
           <p>Total Tasks:{taskCount}</p>
