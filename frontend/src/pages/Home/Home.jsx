@@ -215,8 +215,12 @@ export const useTaskCounts = () => {
     fetchTasks();
   }, []);
 
-  const progressPercentage = (taskDoneCount / totalTaskCount) * 100;
+  const totalTaskCount = totalTask.length || 0;
+  const taskCount = tasks.length || 0;
+  const taskDoneCount = taskDone.length || 0;
 
+  const progressPercentage = (taskDoneCount / totalTaskCount) * 100;
+  
   useEffect(() => {
     const calculateAndSetProgress = async () => {
       for (let index = taskProgress; index <= progressPercentage; index++) {
@@ -225,10 +229,6 @@ export const useTaskCounts = () => {
     };
     calculateAndSetProgress();
   }, [taskDoneCount, totalTaskCount, taskProgress, setTaskProgress]);
-
-  const totalTaskCount = totalTask.length || 0;
-  const taskCount = tasks.length || 0;
-  const taskDoneCount = taskDone.length || 0;
 
   return { totalTaskCount, taskDoneCount, taskCount };
 }
