@@ -170,9 +170,9 @@ const Profile = () => {
             <label htmlFor="file-input">
               <img
                 onChange={setProfile}
-                src={image ? URL.createObjectURL(image) : upload_area}
+                src={URL.createObjectURL(image)}
                 className="userProfile-thumnail"
-                alt=""
+                alt="image"
               />
             </label>
             <input
