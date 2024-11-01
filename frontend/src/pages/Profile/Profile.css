@@ -9,7 +9,7 @@
 .profile-container .background {
   position: absolute;
   top: 0px;
-  transform: translateX(-60%);
+  transform: translateX(-70%);
 }
 .profile-container p{
   letter-spacing: .5px;

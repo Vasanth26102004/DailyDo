@@ -8,7 +8,7 @@
 .home-container .background {
   position: absolute;
   top: 0px;
-  transform: translateX(-60%);
+  transform: translateX(-70%);
 }
 .home-container #img{
   margin-top: 5rem;

@@ -6,7 +6,7 @@
 }
 .background {
   position: absolute;
-  transform: translateX(-58%);
+  transform: translateX(-70%);
 }
 .dashboard-header {
   width: 100%;
@@ -125,4 +125,3 @@
   border: 2px solid #8d8d8db2;
   border-radius:10px;
 }
-cd fronte

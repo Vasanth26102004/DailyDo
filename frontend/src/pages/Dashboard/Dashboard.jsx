@@ -6,6 +6,7 @@ import clock from "../../assets/clock.png";
 import plus from "../../assets/plus.png";
 import "./Dashboard.css";
 import dolist from "../../SambleList/todol.js";
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -216,14 +217,14 @@ const Dashboard = () => {
   };
   const timetone = () => {
     const time = new Date().split();
-    if(time>4 && time<=10){
+    if (time > 4 && time <= 10) {
       return "Good Morning";
-    }else if(time>10 && time<=2){
+    } else if (time > 10 && time <= 2) {
       return "Good Afternoon";
-    }else if(time>2 && time<=6){
+    } else if (time > 2 && time <= 6) {
       return "Good Evening";
-    }else{
-      return "Good Night"
+    } else {
+      return "Good Night";
     }
   };
 
@@ -241,26 +242,28 @@ const Dashboard = () => {
   return (
     <div className="dashboard-content">
       <img class="background" src={shape} alt="" />
-      
+
       {/*SECTION FOR USER DETAIL*/}
       <div className="dashboard-header">
-          <img className="user-image" src={pic} alt="your pic" />
-          <h4 className="user-text">Welcome {Username}</h4>
+        <img className="user-image" src={pic} alt="your pic" />
+        <h4 className="user-text">Welcome {Username}</h4>
       </div>
 
       {/*SECTION FOR CLOCK*/}
       <div className="section">
-        <p className="time-tone">Good Morning</p> 
-        <img className="clock" width="100px" src={clock} alt=""/>
+        <p className="time-tone">Good Morning</p>
+        <img className="clock" width="100px" src={clock} alt="" />
       </div>
 
       {/*SECTION FOR TASK CONTENT*/}
       <div className="container">
-      <div className="tasks-addtask">
-        <h5>Task List</h5>
-        <img width="35px" src={plus} alt=""/>
-      </div>
-      {/*SECTION FOR PROGRESS BAR*/}
+        <div className="tasks-addtask">
+          <h5>Task List</h5>
+          <Link to="/addtask">
+            <img width="35px" src={plus} alt="" />
+          </Link>
+        </div>
+        {/*SECTION FOR PROGRESS BAR*/}
         <div className="progress progress-moved">
           <div
             style={{ "--progress": `${progressPercentage || 0}%` }}

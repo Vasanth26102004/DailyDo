@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./AddTask.css";
 import { TaskList } from "../TaskListContext/TaskListContext.jsx";
+import shape from "../../assets/shape-blue.png";
+import { Link } from 'react-router-dom';
 
 const AddTask = () => {
   const { tasks, setTasks } = useContext(TaskList);
@@ -16,24 +18,26 @@ const AddTask = () => {
     setNewTask((prevTask) => Object.assign({}, prevTask, { [name]: value }));
   };
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const taskWithDateTime = {
       ...newTask,
     };
-  
+
     try {
-      const response = await fetch("https://daily-do-server.vercel.app/task/addtask", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "user-id": localStorage.getItem("user-id")
-        },
-        body: JSON.stringify(taskWithDateTime),
-      });
-  
+      const response = await fetch(
+        "https://daily-do-server.vercel.app/task/addtask",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+          body: JSON.stringify(taskWithDateTime),
+        }
+      );
+
       if (response.ok) {
         const savedTask = await response.json();
         setTasks((prevTasks) => {
@@ -57,9 +61,8 @@ const AddTask = () => {
 
   return (
     <div className="addTask-content">
-      <div className="addTask-header">
-        <h4>Add Task</h4>
-      </div>
+      <img class="background" src={shape} alt=""/>
+      <h4 className="addTask-header">Add Your Task Here!</h4>
       <form className="task-input" onSubmit={handleSubmit}>
         <p>
           Title<span>*</span>
@@ -81,32 +84,46 @@ const AddTask = () => {
           name="description"
           value={newTask.description}
           onChange={changeHandler}
+          placeholder="Descripr your Task"
         />
-        <p>
-          Deadline<span>*</span>
-        </p>
-        <div className="deadline">
-          <input
-            id="time"
-            type="time"
-            name="time"
-            value={newTask.time}
-            onChange={changeHandler}
-            required
-          />
-          <input
-            id="date"
-            type="date"
-            name="date"
-            value={newTask.date}
-            onChange={changeHandler}
-            required
-          />
+        <div className="seperate">
+          <div className="time">
+            <p>
+              Deadline<span>*</span>
+            </p>
+            <input
+              id="time"
+              type="time"
+              name="time"
+              value={newTask.time}
+              onChange={changeHandler}
+              placeholder="00:00"
+              required
+            />
+          </div>
+          <div className="date">
+            <p>
+              Deadline<span>*</span>
+            </p>
+            <input
+              id="date"
+              type="date"
+              name="date"
+              value={newTask.date}
+              onChange={changeHandler}
+              required
+            />
+          </div>
         </div>
         <br />
         <button id="submit-button" type="submit">
-          Add Task
+          Submit
         </button>
+        <Link to="/dashboard">
+        <button id="cancel-button" type="cancel">
+          Cancel
+        </button>
+        </Link>
       </form>
     </div>
   );

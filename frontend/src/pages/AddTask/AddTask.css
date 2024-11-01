@@ -1,122 +1,54 @@
-:root {
-  --primary-color: #58bbf0;
-  --border-color: #85b4c7;
-  --error-color: rgb(243, 59, 59);
-  --font-size-small: 0.875rem; /* 14px */
-  --font-size-medium: 1rem; /* 16px */
-  --font-size-large: 1.25rem; /* 20px */
-}
 
 .addTask-content {
-  height: auto; /* Allow height to adjust based on content */
-  overflow-y: auto; /* Allow scrolling if content exceeds height */
-  padding: 1rem; /* Add padding for better spacing */
-  transition: transform 0.3s ease;
-}
-
-.addTask-header {
+  height:100vh;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 1rem; /* Increased padding */
 }
-
-.addTask-header h4 {
-  font-size: var(--font-size-large);
-  font-weight: 700;
+.addTask-content .background {
+  position: absolute;
+  top: 0px;
+  transform: translateX(-70%);
 }
-
-.addTask-header img {
-  margin-left: auto;
-  max-width: 50px; /* Limit image size */
+.addTask-header {
+  letter-spacing: .5px;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1rem;
 }
 
 .task-input {
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Allow inputs to stretch */
+  align-items: center;
 }
 
 .task-input p {
-  margin: 0.5rem 0;
+  margin-top: 1rem;
   font-size: var(--font-size-small);
 }
-
 .task-input p span {
-  color: var(--error-color);
+  margin: 5px;
+  color: rgb(252, 77, 47);
 }
-
 .task-input input {
-  width: 100%;
-  max-width: 100%; /* Full width */
-  height: 40px;
-  padding: 0.5rem; /* Adjust padding */
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  outline: none;
-  color: var(--primary-color);
-  font-size: var(--font-size-medium);
-  font-weight: 600;
-  transition: border-color 0.3s ease;
+  margin: 1rem 0;
 }
-
-.task-input input:focus {
-  border-color: var(--primary-color);
-}
-
-#submit-button {
-  margin-top: 1rem;
-  width: 100%;
-  max-width: 200px;
-  font-size: var(--font-size-medium);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#submit-button:hover {
-  background-color: rgba(88, 187, 240, 0.1);
-}
-
-.deadline {
-  width: 100%;
+.task-input .seperate{
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem; /* Add margin for spacing */
+  align-items: stretch;
+  gap: 2rem;
 }
-
 #time,
 #date {
-  width: 48%; /* Use percentage for flexible widths */
+  max-width: 140px;
+  padding-right: 15px;
 }
-
-@media (max-width: 768px) {
-  .addTask-content {
-      transform: scale(0.95);
-  }
-
-  .addTask-header img {
-      max-width: 40px; /* Adjust image size for tablets */
-  }
-
-  .task-input input,
-  #submit-button,
-  .deadline {
-      width: 100%; /* Full width on smaller screens */
-  }
+.task-input button{
+  margin: 1rem 0;
 }
-
-@media (max-width: 480px) {
-  .addTask-content {
-      transform: scale(0.9);
-  }
-
-  .task-input p {
-      font-size: var(--font-size-small); /* Maintain small font size */
-  }
-
-  .addTask-header h4 {
-      font-size: var(--font-size-medium); /* Adjust header size */
-  }
+#cancel-button{
+  background: #f66b6b;
 }
