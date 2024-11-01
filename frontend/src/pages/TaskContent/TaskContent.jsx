@@ -31,11 +31,13 @@ import img29 from '../../assets/task_icon/14028_13.jpg';
 import img30 from '../../assets/task_icon/14028_14.jpg';
 import img31 from '../../assets/task_icon/14028_15.jpg';
 import img32 from '../../assets/task_icon/14028_16.jpg';
-import "./HomeTask.css";
-import check from "../../assets/check.png";
-import dustbin from "../../assets/dustbin.png";
+import "./TaskContent.css";
+import check from "../../assets/donebutton.png";
+import edit from "../../assets/editbutton.png";
+import clear from "../../assets/deletebutton.png";
+import { Link } from "react-router-dom";
 
-const HomeTask = (props) => {
+const TaskContent = (props) => {
   const [randomTask, setRandomTask] = useState("");
   const [isActive, setIsActive] = useState(false);
 
@@ -60,7 +62,6 @@ const HomeTask = (props) => {
       setIsActive(true); 
     }
   };
-
   const taskDelete = () => {
     if (props.onDelete) {
       props.onDelete(props.id); 
@@ -68,23 +69,23 @@ const HomeTask = (props) => {
   };
 
   return (
-    <div id={`task-${props.id}`} className={`hometask ${isActive || props.done ? "active" : ""}`}>
+    <div id={`task-1`} className={`hometask ${isActive || props.done ? "active" : ""}`}>
       <img className="task-image" src={randomTask} alt="Task Icon" />
-      <div className="hometask-task">
-        <h3 className="hometask-title" max-width="100px">
-          {props.title}
-        </h3>
-        <div className="hometask-datetime">
-          <h3 className="hometask-date">{props.date}</h3>
-          <h3 className="hometask-time">{props.time}</h3>
-        </div>
+      <div className="taskcontent-task">
+        <h2 className="taskcontent-title" max-width="100px">
+          Title
+        </h2>
+          <h3 className="taskcontent-time">Time</h3>
       </div>
-      <div className="hometask-btns">
+      <div className="taskcontent-btns">
         <img onClick={taskDone} width="55px" src={check} alt="Mark as done" />
-        <img onClick={taskDelete} width="45px" src={dustbin} alt="Delete task" />
+      <Link to="/edittask">
+      <img width="55px" src={edit} alt="edit Task" />
+      </Link>
+        <img onClick={taskDelete} width="45px" src={clear} alt="Delete task" />
       </div>
     </div>
   );
 };
 
-export default HomeTask;
+export default TaskContent;

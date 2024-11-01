@@ -1,4 +1,4 @@
-let todoList = [
+let tasks = [
 {
  id:1,
  title:"Task 1",
@@ -14,4 +14,4 @@ let todoList = [
   date:"01.01.2024",
 }
 ]
-export default todoList;
+export default tasks;

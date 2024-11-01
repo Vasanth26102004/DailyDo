@@ -1,4 +1,53 @@
-.profile-content{
-  height: 95vh;
-  overflow-y: hidden;
+.profile-container {
+  height:75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem 0;
+}
+.profile-container .background {
+  position: absolute;
+  top: 0px;
+  transform: translateX(-60%);
+}
+.profile-container p{
+  letter-spacing: .5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.profile-container #text{
+  margin-bottom: 2rem;
+}
+.profile-container #img {
+  width: 190px;
+  height: 140px;
+}
+.forget{
+  color: #3bb0d3;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loginsignup-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem 0;
+}
+.loginsignup-btn{
+ position: absolute;
+ top: 83vh;
+ left: 50%;
+ transform: translateX(-50%);
+}
+.loginsignup-login{
+  position: absolute;
+  top: 92vh;
+}
+.loginsignup-login span{
+  font-size: 16px;
+  color:var(--btn-bg);
+}
+.error-message{
+  color: tomato;
 }

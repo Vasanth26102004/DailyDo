@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./TaskDetail.css";
+import "./EditTask.css";
 import Task from "../Task/Task.jsx";
 
 const TaskDetail = () => {
