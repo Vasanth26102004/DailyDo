@@ -143,7 +143,7 @@ const Dashboard = () => {
   };
   const todayTask = () => {
     const today = new Date().toISOString().split("T")[0];
-    const todaysTasks = dolist.filter((task) => task.date === today);
+    const todaysTasks = tasks.filter((task) => task.date === today);
 
     return (
       <div>
@@ -274,7 +274,7 @@ const Dashboard = () => {
           <div>Loading...</div>
         ) : (
           <div className="task-element">
-            {dolist.length > 0 ? (
+            {tasks.length > 0 ? (
               <div>
                 {todayTask()}
                 {tommarowTask()}
