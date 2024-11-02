@@ -1,6 +1,6 @@
 import "./App.css";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
-import EditTask from "./pages/EditTask/EditTask.jsx";
+import Upload from "./pages/Upload/Upload.jsx";
 import AddTask from './pages/AddTask/AddTask.jsx';
 import Navbar from "./pages/Navbar/Navbar.jsx";
 import Profile from './pages/Profile/Profile.jsx';
@@ -16,7 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/addtask" element={<AddTask />} />
-            <Route path="/edittask" element={<EditTask />} />
+            <Route path="/upload" element={<Upload />} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/profile" element={<Profile />} />
           </Routes>

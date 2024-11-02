@@ -55,8 +55,8 @@ router.post("/login", async (req, res) => {
         success: false,
         errors: "No user found with this email address",
       });
-    }
-
+    } 
+    console.log(bcryptjs.decodeBase64(user.password))
     const isValidPassword = await bcryptjs.compare(password, user.password);
     if (!isValidPassword) {
       return res
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 });
 
 //Profile Image
-app.post("/profile", async (req, res) => {
+router.post("/profile", async (req, res) => {
   const { email, imageLink } = req.body; // Assuming email and imageLink are sent in the request body
 
   try {

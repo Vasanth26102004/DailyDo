@@ -13,7 +13,8 @@ ENV_VARS;
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://daily-do-app.vercel.app', 
+  //origi: 'https://daily-do-app.vercel.app',
+  origin:'http://localhost:5173', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
   maxAge: 3600,
 }));

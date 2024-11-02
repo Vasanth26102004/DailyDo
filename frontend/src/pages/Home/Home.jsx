@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <img class="background" src={shape} alt="" />
+      <img className="background" src={shape} alt="" />
       <img id="img" src={home_img} alt="" />
       <h1 className="home-header">
         Gets things with <span>Daily-Do</span>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import "./AddTask.css";
 import { TaskList } from "../TaskListContext/TaskListContext.jsx";
 import shape from "../../assets/shape-blue.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AddTask = () => {
   const { tasks, setTasks } = useContext(TaskList);
@@ -12,6 +12,7 @@ const AddTask = () => {
     date: "",
     time: "",
   });
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -53,6 +54,7 @@ const AddTask = () => {
           date: "",
           time: "",
         });
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error("Error occurred:", error);

@@ -11,8 +11,6 @@ const Profile = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-  const userName = localStorage.getItem("user-name");
-  const userEmail = localStorage.getItem("e-mail");
 
   const { username, email, password } = formData;
 
@@ -24,7 +22,7 @@ const Profile = () => {
     if (!email || !password) {
       return setErrorMessage("Please fill in all required fields.");
     }
-
+    console.log(email,password)
     try {
       const response = await fetch(
         `https://daily-do-server.vercel.app/auth/login`,
@@ -106,7 +104,7 @@ const Profile = () => {
   };
   return (
     <div className="profile-container">
-      <img class="background" src={shape} alt=""/>
+      <img className="background" src={shape} alt=""/>
       {errorMessage ? (
         <p className="error-message">{errorMessage}</p>
       ) : (
@@ -126,7 +124,7 @@ const Profile = () => {
             onChange={changeHandler}
             type="text"
             placeholder="Your Name"
-            required={!isLogin}
+            required
           />
         )}
         <input

@@ -6,7 +6,7 @@ import clock from "../../assets/clock.png";
 import plus from "../../assets/plus.png";
 import "./Dashboard.css";
 import dolist from "../../SambleList/todol.js";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
@@ -36,7 +36,6 @@ const Dashboard = () => {
         if (!response.ok) {
           console.error("Network response was not ok");
         }
-
         setTasks(data.tasks);
       } catch (error) {
         setError(error.message);
@@ -48,6 +47,38 @@ const Dashboard = () => {
     };
     fetchTasks();
   }, []);
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    const overTask = tasks.filter(task => task.date < today);
+    
+    overTask.forEach(task => {
+      fetchOverTasks(task);
+    });
+  }, [tasks]);
+  
+  const fetchOverTasks = async (task) => {
+    try {
+      const response = await fetch(
+        `https://daily-do-server.vercel.app/task/deletetask/${task.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "user-id": localStorage.getItem("user-id"),
+          },
+        }
+      );
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Network response was not ok");
+      }
+      setTasks(data.tasks);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  
 
   const totalTask = tasks.filter((task) => {
     return task.date == today;
@@ -116,6 +147,7 @@ const Dashboard = () => {
         <TaskContent
           id={task._id}
           title={task.title}
+          description={task.description}
           date={task.date}
           time={task.time}
           done={task.done}
@@ -125,7 +157,7 @@ const Dashboard = () => {
       </div>
     );
   };
-
+  
   // Get TAsks for Next Four Days in a Row
   const getDay = (date) => {
     const dayIndex = date.getDay();
@@ -141,8 +173,9 @@ const Dashboard = () => {
     const dayName = daysOfWeek[dayIndex];
     return dayName;
   };
-  const todayTask = () => {
+  const todayTask = (tasks) => {
     const today = new Date().toISOString().split("T")[0];
+    console.log(tasks);
     const todaysTasks = tasks.filter((task) => task.date === today);
 
     return (
@@ -158,11 +191,13 @@ const Dashboard = () => {
       </div>
     );
   };
-  const tommarowTask = () => {
+  const tommarowTask = (tasks) => {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-    const tomorrowsTasks = tasks.date === tomorrow.toISOString().split("T")[0];
+    const tomorrowsTasks = tasks.filter(
+      (task) => task.date === tomorrow.toISOString().split("T")[0]
+    );
 
     return (
       <div>
@@ -177,11 +212,13 @@ const Dashboard = () => {
       </div>
     );
   };
-  const secdayTask = () => {
+  const secdayTask = (tasks) => {
     const today = new Date();
     const secday = new Date(today);
     secday.setDate(today.getDate() + 2);
-    const secdaysTasks = tasks.date === secday.toISOString().split("T")[0];
+    const secdaysTasks = tasks.filter(
+      (task) => task.date === secday.toISOString().split("T")[0]
+    );
 
     return (
       <div>
@@ -196,11 +233,13 @@ const Dashboard = () => {
       </div>
     );
   };
-  const thrdayTask = () => {
+  const thrdayTask = (tasks) => {
     const today = new Date();
     const thrday = new Date(today);
     thrday.setDate(today.getDate() + 3);
-    const thrdaysTasks = tasks.date === thrday.toISOString().split("T")[0];
+    const thrdaysTasks = tasks.filter(
+      (task) => task.date === thrday.toISOString().split("T")[0]
+    );
 
     return (
       <div>
@@ -216,19 +255,21 @@ const Dashboard = () => {
     );
   };
   const timetone = () => {
-    const time = new Date().split();
-    if (time > 4 && time <= 10) {
+    const time = new Date();
+    const hour = time.getHours();
+
+    if (hour >= 4 && hour < 10) {
       return "Good Morning";
-    } else if (time > 10 && time <= 2) {
+    } else if (hour >= 10 && hour < 18) {
       return "Good Afternoon";
-    } else if (time > 2 && time <= 6) {
+    } else if (hour >= 18 && hour < 22) {
       return "Good Evening";
     } else {
       return "Good Night";
     }
   };
 
-  const progressPercentage = (taskDoneCount / totalTaskCount) * 100;
+  const progressPercentage = (taskDoneCount / totalTaskCount) * 100 || 0;
 
   useEffect(() => {
     const calculateAndSetProgress = async () => {
@@ -241,17 +282,19 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-content">
-      <img class="background" src={shape} alt="" />
+      <img className="background" src={shape} alt="" />
 
       {/*SECTION FOR USER DETAIL*/}
       <div className="dashboard-header">
-        <img className="user-image" src={pic} alt="your pic" />
+        <Link to="/upload">
+          <img className="user-image" src={pic} alt="your pic" />
+        </Link>
         <h4 className="user-text">Welcome {Username}</h4>
       </div>
 
       {/*SECTION FOR CLOCK*/}
       <div className="section">
-        <p className="time-tone">Good Morning</p>
+        <p className="time-tone">{timetone()}</p>
         <img className="clock" width="100px" src={clock} alt="" />
       </div>
 
@@ -276,10 +319,10 @@ const Dashboard = () => {
           <div className="task-element">
             {tasks.length > 0 ? (
               <div>
-                {todayTask()}
-                {tommarowTask()}
-                {secdayTask()}
-                {thrdayTask()}
+                {todayTask(tasks)}
+                {tommarowTask(tasks)}
+                {secdayTask(tasks)}
+                {thrdayTask(tasks)}
               </div>
             ) : (
               <div className="task-noelement">

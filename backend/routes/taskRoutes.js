@@ -52,6 +52,42 @@ router.post("/addtask", async (req, res) => {
   }
 });
 
+// Change the Existing task for a specific user
+router.post("/updatetask", async (req, res) => {
+  try {
+    const userId = req.headers["user-id"];
+    const { taskId, title, description, date, time } = req.body;
+
+    if (!userId || !taskId) {
+      return res.json({
+        success: false,
+        message: "userId and taskId must be provided",
+      });
+    }
+    // Find the task by taskId and userId to ensure the user can only update their own tasks
+    const task = await Task.findOne({ _id: taskId, userId: userId });
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+      });
+    }
+    // Update only the fields that are provided
+    if (title !== undefined) task.title = title;
+    if (description !== undefined) task.description = description || " ";
+    if (date !== undefined) task.date = date;
+    if (time !== undefined) task.time = time;
+    if (date && time) task.dateTime = `${date}T${time}:00.000Z`;
+
+    await task.save();
+
+    res.status(200).json({ success: true, updatedTask: task });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server Error", error });
+  }
+});
+
 // Mark task as done for a specific user
 router.put("/donetask/:taskId/done", async (req, res) => {
   const userId = req.headers["user-id"]; // Get userId from headers

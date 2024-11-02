@@ -3,9 +3,9 @@
 }
 
 .taskcontent {
-  margin-top: 1rem;
+  margin-top: .5rem;
   border: 3px solid #ececec;
-  box-shadow: 0 0 15px 2px #a0defa;
+  box-shadow: 2px 2px 5px 1px #818181;
   border-radius: 15px;
   display: flex;
   justify-content: space-between;
@@ -14,7 +14,7 @@
   transition: all 0.3s ease;
 }
 .taskcontent.active {
-  color: #ffffff49;
+  color: #2e2e2e49;
   transition: all 0.3s linear;
   text-decoration: line-through solid #c7c7c760 5px;
 }
@@ -25,38 +25,33 @@
     border-radius: 10px;
 }
 .taskcontent-task {
-    margin-top: -12px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    padding: .5rem 0;
     text-align: left;   
 }
 .taskcontent-title {
   max-width: 170px;
-  font-size: 28px;
+  font-size: 18px;
   font-weight: 600;
   overflow: hidden;
 }
-.taskcontent-datetime {
-  font-size: 12px;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 10px;
-}
-.taskcontent-time,
-.taskcontent-date{
+.taskcontent-time{
+  font-size: 14px;
+  font-weight: 600px;
 }
 
 .taskcontent-btns {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: .5rem;
 }
-.taskcontent button {
+.taskcontent-btns img {
   all: unset;
+  width: 30px;
   justify-content: center;
   align-items: center;
+  text-shadow: 1px 1px 3px 1px rgb(177, 177, 177);
 }
