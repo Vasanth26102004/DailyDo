@@ -31,7 +31,7 @@ app.use("/",
     }
 );
 
-// Image Engine
+/*// Image Engine
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
@@ -50,7 +50,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
     success: 1,
     image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
   });
-});
+});*/
 
 // Start server
 app.listen(PORT, () => {

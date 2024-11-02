@@ -15,11 +15,11 @@ const User = mongoose.model("User",
       type: String,
       required: true,
     },
-    image: {
+    /*image: {
       type: String,
       required: true,
-      default:  "https://res.cloudinary.com/dqyjxwz6j/image/upload/v166",
-    },
+      default:  " ",
+    },*/
     date: {
       type: Date,
       default: Date.now,

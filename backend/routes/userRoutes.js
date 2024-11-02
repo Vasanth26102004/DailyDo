@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 });
 
 //Profile Image
-router.post("/profile", async (req, res) => {
+/*router.post("/profile", async (req, res) => {
   const { email, imageLink } = req.body; // Assuming email and imageLink are sent in the request body
 
   try {
@@ -92,6 +92,6 @@ router.post("/profile", async (req, res) => {
     console.error(error);
     res.status(500).json({ success: false, message: "Error saving product" });
   }
-});
+});*/
 
 export default router;
