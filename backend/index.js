@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from "url";
 
 import { ENV_VARS } from "./config/envVars.js";
 import connectDB from "./config/db.js";
@@ -33,24 +34,31 @@ app.use("/",
     }
 );
 
-// Image Engine
+// Create `__dirname` in ES6 modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Set up multer storage with simplified options
 const storage = multer.diskStorage({
-  destination: "./upload/images",
+  destination: path.join(__dirname, "upload/images"), // Use the resolved `__dirname`
   filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
-const upload = multer({ storage: storage });
+const upload = multer({ storage });
 
-// Create Upload Destination
-app.use("/images", express.static("upload/images"));
+// Serve static files from the upload directory
+app.use("/images", express.static(path.join(__dirname, "upload/images")));
+
+// Image upload endpoint
 app.post("/upload", upload.single("product"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ success: 0, message: "No file uploaded" });
+  }
+
   res.json({
     success: 1,
-    image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
+    image_url: `http://localhost:${PORT}/images/${req.file.filename}`, // Localhost URL for testing
   });
 });
 
