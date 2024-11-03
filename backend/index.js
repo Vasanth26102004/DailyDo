@@ -7,15 +7,15 @@ import userRoutes from "./routes/userRoutes.js";
 import multer from "multer"; 
 
 const app = express();
-const PORT = ENV_VARS.PORT || 3000;
+const PORT = 3000;
 ENV_VARS;
 
 // Middleware
 app.use(express.json());
 app.use(cors({
-  //origi: 'https://daily-do-app.vercel.app',
   origin:'http://localhost:5173', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  allowedHeaders: ['Content-Type','Authorization','user-id','user-name','e-mail'],
   maxAge: 3600,
 }));
 
@@ -31,7 +31,7 @@ app.use("/",
     }
 );
 
-/*// Image Engine
+// Image Engine
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
@@ -50,7 +50,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
     success: 1,
     image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
   });
-});*/
+});
 
 // Start server
 app.listen(PORT, () => {
