@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import { ENV_VARS } from "./envVars.js";
 
-const connectDB = async () => {
+export const connectDB = async () => {
   try {
-    await mongoose.connect(ENV_VARS.MONGO_URI,{
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    mongoose.connect(
+      "mongodb+srv://vasanthp2610:vasanth2610@cluster0.h1wtv.mongodb.net/dailydo"
+    );
     console.log("MongoDB Connected");
   } catch (err) {
     console.error("Failed to connect to MongoDB", err);
@@ -14,4 +13,3 @@ const connectDB = async () => {
   }
 };
 
-export default connectDB;

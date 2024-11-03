@@ -1,44 +1,43 @@
 import express from "express";
 import { ENV_VARS } from "./config/envVars.js";
 import cors from "cors";
-import connectDB from "./config/db.js";
+import {connectDB} from "./config/db.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import multer from "multer"; 
+import mongoose from "mongoose";
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000; // Use the environment variable PORT or default to 3000
+
+// Load environment variables
 ENV_VARS;
 
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin:'http://localhost:5173', 
+  origin: 'http://localhost:5173', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type','Authorization','user-id','user-name','e-mail'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'user-id', 'user-name', 'e-mail'],
   maxAge: 3600,
 }));
 
 // Database connection
 connectDB();
+console.log("Database Connected")
 
 // Routes
 app.use("/task", taskRoutes);
 app.use("/auth", userRoutes);
-app.use("/", 
-  (req, res) => {
-    res.send("Welcome to the API");
-    }
-);
+app.get("/", (req, res) => {
+  res.send("Welcome to the API");
+});
 
 // Image Engine
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
-    return cb(
-      null,
-      file.originalname
-    );
+    cb(null, file.originalname);
   },
 });
 const upload = multer({ storage: storage });
@@ -48,7 +47,7 @@ app.use("/images", express.static("upload/images"));
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
+    image_url: `https://daily-do-server.vercel.app/images/${req.file.filename}`,
   });
 });
 
