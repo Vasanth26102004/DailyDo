@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import multer from "multer";
+import path from "path";
 
 import { ENV_VARS } from "./config/envVars.js";
 import connectDB from "./config/db.js";
@@ -36,7 +37,10 @@ app.use("/",
 const storage = multer.diskStorage({
   destination: "./upload/images",
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
 const upload = multer({ storage: storage });
@@ -46,7 +50,7 @@ app.use("/images", express.static("upload/images"));
 app.post("/upload", upload.single("product"), (req, res) => {
   res.json({
     success: 1,
-    image_url: `https://daily-do-server.vercel.app/images/${req.file.filename}`,
+    image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
   });
 });
 
