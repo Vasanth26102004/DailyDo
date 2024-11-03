@@ -14,12 +14,14 @@ ENV_VARS;
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: 'https://daily-do-app.vercel.app', 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  allowedHeaders: ['Content-Type','Authorization','user-id'],
-  maxAge: 3600,
-}));
+app.use(
+  cors({
+    origin: "https://daily-do-app.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization", "user-id"],
+    maxAge: 3600,
+  })
+);
 
 // Database connection
 connectDB();
@@ -27,22 +29,27 @@ connectDB();
 // Routes
 app.use("/task", taskRoutes);
 app.use("/auth", userRoutes);
-app.use("/", 
-  (req, res) => {
-    res.send("Welcome to the API");
-    }
-);
+app.use("/", (req, res) => {
+  res.send("Welcome to the API");
+});
 
 // Image Engine
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    return cb(
-      null,
-      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-    );
-  },
-});
+const storage = async () => {
+  try {
+    console.log("storage");
+    multer.diskStorage({
+      destination: "./upload/images",
+      filename: (req, file, cb) => {
+        return cb(
+          null,
+          `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+        );
+      },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 const upload = multer({ storage: storage });
 
 // Create Upload Destination
@@ -53,7 +60,6 @@ app.post("/upload", upload.single("product"), (req, res) => {
     image_url: "http://localhost:${port}/images/${req.file.filename}",
   });
 });
-
 
 // Start server
 app.listen(PORT, () => {
