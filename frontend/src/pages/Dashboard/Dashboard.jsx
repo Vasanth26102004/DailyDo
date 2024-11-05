@@ -16,6 +16,8 @@ const Dashboard = () => {
 
   const User = localStorage.getItem("user-id");
   const Username = localStorage.getItem("user-name");
+  const Usermail = localStorage.getItem("e-mail");
+  const User_img = localStorage.getItem("user-img");
   const today = new Date().toISOString().split("T")[0];
 
   //Fetching All Tasks from the Database
@@ -294,9 +296,10 @@ const Dashboard = () => {
       {/*SECTION FOR USER DETAIL*/}
       <div className="dashboard-header">
         <Link to="/upload">
-          <img className="user-image" src={pic} alt="your pic" />
+          <img className="user-image" src={User_img||pic} alt="your pic" />
         </Link>
         <h4 className="user-text">Welcome {Username}</h4>
+        <p>{Usermail}</p>
       </div>
 
       {/*SECTION FOR CLOCK*/}

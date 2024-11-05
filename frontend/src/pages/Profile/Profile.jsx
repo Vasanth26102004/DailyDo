@@ -43,6 +43,7 @@ const Profile = () => {
         localStorage.setItem("user-id", responseData.user._id);
         localStorage.setItem("user-name", responseData.user.name);
         localStorage.setItem("e-mail", responseData.user.email);
+        localStorage.setItem("user-img", responseData.user.image);
         navigate("/dashboard");
       } else {
         setErrorMessage(responseData.errors || "Authentication failed.");
@@ -77,6 +78,7 @@ const Profile = () => {
         localStorage.setItem("user-id", responseData.user._id);
         localStorage.setItem("user-name", responseData.user.name);
         localStorage.setItem("e-mail", responseData.user.email);
+        localStorage.setItem("user-img", responseData.user.image);
         navigate("/dashboard");
       } else {
         setErrorMessage(responseData.errors || "Authentication failed.");
