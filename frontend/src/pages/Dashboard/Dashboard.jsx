@@ -49,7 +49,9 @@ const Dashboard = () => {
     fetchTasks();
   }, []);
   useEffect(() => {
-    const overTask = tasks.filter((task) => {return task.date < today});
+    const overTask = tasks.filter((task) => {
+      return task.date < today;
+    });
     
     overTask.forEach(task => {
       console.log(task._id)
