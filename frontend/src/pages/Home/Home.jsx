@@ -7,9 +7,8 @@ import shape from "../../assets/shape-blue.png";
 
 const Home = () => {
   const changePage = () => {
-    let page;
     const authToken = localStorage.getItem("user-id");
-    authToken ? (page = "/tasklist") : (page = "/profile");
+    authToken ? "/tasklist" : "/profile";
     console.log(page);
   };
 
@@ -25,7 +24,7 @@ const Home = () => {
         reprehenderit Lorem voluptate Lorem culpa dolor anim. Eu quis ipsum amet
         occaecat occaecat consectetur enim quis aliqua.
       </p>
-      <Link onClick={changePage} to={page}>
+      <Link onClick={changePage} to={authToken ? "/tasklist" : "/profile"}>
         <button className="starter-btn">Get Started</button>
       </Link>
     </div>
