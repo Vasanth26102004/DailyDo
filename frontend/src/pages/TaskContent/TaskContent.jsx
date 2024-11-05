@@ -9,7 +9,7 @@ const TaskContent = (props) => {
   const [isActive, setIsActive] = useState(false);
   const [active, setActive] = useState(false);
 
-  console.log(active)
+  console.log(active);
 
   const taskDone = () => {
     if (props.onDone) {
@@ -25,27 +25,40 @@ const TaskContent = (props) => {
   const taskEdit = () => {};
 
   const toggleActive = () => {
-    setActive(prevActive => !prevActive);
+    setActive((prevActive) => !prevActive);
   };
 
-    return (
-      <div
-        id={`task-${props.id}`}
-        className={`taskcontent ${(isActive || props.done) && !active ? "active" : ""}`}
-      >
+  return (
+    <div
+      id={`task-${props.id}`}
+      className={`taskcontent ${
+        (isActive || props.done) && !active ? "active" : ""
+      }`}
+    >
+      {active ? (
         <div className="taskcontent-task" onClick={toggleActive}>
-          <h2 className="taskcontent-title" max-width="100px">
-            {props.title}
-          </h2>
+          <h2 className="taskcontent-title">{props.title}</h2>
+          <h2 className="taskcontent-title">{props.description}</h2>
           <h3 className="taskcontent-time">{props.time}</h3>
+          <h3 className="taskcontent-time">{props.date}</h3>
         </div>
-        {active ? <p></p> : <div className="taskcontent-btns">
-          <img onClick={taskDone} src={check} alt="Mark as done" />
-          <img onClick={taskEdit} src={edit} alt="edit Task" />
-          <img onClick={taskDelete} src={clear} alt="Delete task" />
-        </div>} 
-      </div>
-    );
+      ) : (
+        <>
+          <div className="taskcontent-task" onClick={toggleActive}>
+            <h2 className="taskcontent-title" max-width="150px">
+              {props.title}
+            </h2>
+            <h3 className="taskcontent-time">{props.time}</h3>
+          </div>
+          <div className="taskcontent-btns">
+            <img onClick={taskDone} src={check} alt="Mark as done" />
+            <img onClick={taskEdit} src={edit} alt="edit Task" />
+            <img onClick={taskDelete} src={clear} alt="Delete task" />
+          </div>
+        </>
+      )}
+    </div>
+  );
 };
 
 export default TaskContent;
