@@ -48,13 +48,13 @@ const Dashboard = () => {
     };
     fetchTasks();
   }, []);
-  useEffect(() => {
+  /*useEffect(() => {
     const overTask = tasks.filter((task) => {return task.date < today});
     
     overTask.forEach(task => {
       fetchOverTasks(task);
     });
-  }, [tasks]);
+  }, [tasks]);*/
 
   const fetchOverTasks = async (task) => {
     try {
