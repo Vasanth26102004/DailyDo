@@ -6,11 +6,7 @@ import home_img from "../../assets/homeimg1.png";
 import shape from "../../assets/shape-blue.png";
 
 const Home = () => {
-  const changePage = () => {
     const authToken = localStorage.getItem("user-id");
-    authToken ? "/tasklist" : "/profile";
-    console.log(page);
-  };
 
   return (
     <div className="home-container">
@@ -24,7 +20,7 @@ const Home = () => {
         reprehenderit Lorem voluptate Lorem culpa dolor anim. Eu quis ipsum amet
         occaecat occaecat consectetur enim quis aliqua.
       </p>
-      <Link onClick={changePage} to={authToken ? "/tasklist" : "/profile"}>
+      <Link onClick={changePage} to={authToken ? "/dashboard" : "/profile"}>
         <button className="starter-btn">Get Started</button>
       </Link>
     </div>
