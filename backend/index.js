@@ -16,7 +16,7 @@ ENV_VARS;
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://daily-do-app.vercel.app",
+    origin: "https://daily-do-app.vercel.app"||"http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     maxAge: 3600,
   })

@@ -47,7 +47,7 @@ const Upload = () => {
           className="username"
           type="text"
           name="username"
-          value={newTask.description}
+          value={newUser.username}
           onChange={changeHandler}
           placeholder="New Username"
         />
@@ -56,7 +56,7 @@ const Upload = () => {
           className="email"
           type="email"
           name="email"
-          value={newTask.description}
+          value={newUser.email}
           onChange={changeHandler}
           placeholder="Describe your TaskNew E-Mail Address"
         />
