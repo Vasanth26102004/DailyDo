@@ -5,17 +5,16 @@ import { Link } from "react-router-dom";
 const Upload = () => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState(false);
-  const [newTask, setNewTask] = useState({
-    title: "",
-    description: "",
-    date: "",
-    time: "",
+  const [newUser, setNewUser] = useState({
+    image: "",
+    username: "",
+    email: "",
   });
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setNewTask((prevTask) => ({
-      ...prevTask,
+    setNewUser((prevUser) => ({
+      ...prevUser,
       [name]: value,
     }));
   };
@@ -45,21 +44,21 @@ const Upload = () => {
         </div>
         <p>Username</p>
         <input
-          className="description"
+          className="username"
           type="text"
-          name="description"
+          name="username"
           value={newTask.description}
           onChange={changeHandler}
-          placeholder="Describe your Task"
+          placeholder="New Username"
         />
-        <p>Username</p>
+        <p>E-Mail</p>
         <input
-          className="description"
-          type="text"
-          name="description"
+          className="email"
+          type="email"
+          name="email"
           value={newTask.description}
           onChange={changeHandler}
-          placeholder="Describe your Task"
+          placeholder="Describe your TaskNew E-Mail Address"
         />
         <button id="submit-button" type="submit">
           Submit
