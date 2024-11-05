@@ -6,8 +6,8 @@ import home_img from "../../assets/homeimg1.png";
 import shape from "../../assets/shape-blue.png";
 
 const Home = () => {
-  let page = "/profile";
   const changePage = () => {
+    let page;
     const authToken = localStorage.getItem("user-id");
     authToken ? (page = "/tasklist") : (page = "/profile");
     console.log(page);
