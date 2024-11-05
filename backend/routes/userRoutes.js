@@ -72,26 +72,26 @@ router.post("/login", async (req, res) => {
   }
 });
 
-//Profile Image
-/*router.post("/profile", async (req, res) => {
-  const { email, imageLink } = req.body; // Assuming email and imageLink are sent in the request body
+// Route to handle user profile update
+router.post("/auth/update/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const updatedUserData = req.body;
 
   try {
-    let user = await User.findOneAndUpdate(
-      { email },
-      { image: imageLink }, // Update the image link
-      { new: true } // Return the updated document
-    );
+    const user = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true, 
+    });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User  not found" });
+      return res.status(404).json({ success: 0, message: "User not found" });
     }
 
-    res.status(200).json({ success: true, user });
+    res.json({ success: 1, user });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Error saving product" });
+    console.error("Error updating user profile:", error);
+    res.status(500).json({ success: 0, message: "Internal Server Error" });
   }
-});*/
+});
+
 
 export default router;

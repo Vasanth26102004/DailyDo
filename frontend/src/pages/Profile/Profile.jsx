@@ -145,9 +145,11 @@ const Profile = () => {
         />
       </div>
       {isLogin ? <p className="forget">Forget password?</p> : ""}
+      <Link to="/dashboard">
       <button className="loginsignup-btn" onClick={submitForm}>
         {isLogin ? "Login" : "Register"}
       </button>
+      </Link>
       <p className="loginsignup-login">
         {isLogin ? (
           <>

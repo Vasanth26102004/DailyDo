@@ -1,24 +1,43 @@
-.upload-area{
+.upload-container {
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.upload-container .background {
+  position: absolute;
+  top: 0px;
+  transform: translateX(-70%);
+}
+.upload-header {
+  letter-spacing: .5px;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 1rem;
+}
+.upload-field {
   width: 100%;
   color: #7b7b7b;
-   font-size: 16px;
-  }
-  .upload-area input{
-      box-sizing:border-box;
-      width: 100%;
-      height: 50px;
-      border-radius:4px;
-      padding-left: 15px;
-      border: 1px solid #c3c3c3;
-      outline: none;
-      color:#7b7b7b;
-      font-family: 'Poppins';
-      font-size: 14px;
-  }
-  .addproduct-thumnail{
-  height: 120px;
-  width: 120px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.upload-field img{
+  max-height: 120px;
   border-radius:10px;
-  object-fit: contain;
+  object-fit:contain;
   margin: 10px 0px;
   }
+.upload-field p {
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  font-size: var(--font-size-small);
+}
+.upload-field button{
+  margin-top: 1rem;
+}
+.upload-field #file-input{
+  display: none;
+}
