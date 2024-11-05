@@ -52,6 +52,7 @@ const Dashboard = () => {
     const overTask = tasks.filter((task) => {return task.date < today});
     
     overTask.forEach(task => {
+      console.log(task._id)
       fetchOverTasks(task);
     });
   }, [tasks]);
