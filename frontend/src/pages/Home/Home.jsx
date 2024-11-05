@@ -20,7 +20,7 @@ const Home = () => {
         reprehenderit Lorem voluptate Lorem culpa dolor anim. Eu quis ipsum amet
         occaecat occaecat consectetur enim quis aliqua.
       </p>
-      <Link onClick={changePage} to={authToken ? "/dashboard" : "/profile"}>
+      <Link to={authToken ? "/dashboard" : "/profile"}>
         <button className="starter-btn">Get Started</button>
       </Link>
     </div>
