@@ -18,7 +18,6 @@ app.use(
   cors({
     origin: "https://daily-do-app.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "user-id"],
     maxAge: 3600,
   })
 );

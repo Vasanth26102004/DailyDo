@@ -49,13 +49,13 @@ const Dashboard = () => {
     fetchTasks();
   }, []);
   useEffect(() => {
-    const overTask = tasks.filter(task => task.date < today);
+    const overTask = tasks.filter((task) => {return task.date < today});
     
     overTask.forEach(task => {
       fetchOverTasks(task);
     });
   }, [tasks]);
-  
+
   const fetchOverTasks = async (task) => {
     try {
       const response = await fetch(
@@ -78,7 +78,6 @@ const Dashboard = () => {
       console.log(error.message);
     }
   };
-  
 
   const totalTask = tasks.filter((task) => {
     return task.date == today;
@@ -157,7 +156,7 @@ const Dashboard = () => {
       </div>
     );
   };
-  
+
   // Get TAsks for Next Four Days in a Row
   const getDay = (date) => {
     const dayIndex = date.getDay();
