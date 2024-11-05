@@ -16,6 +16,7 @@ const Dashboard = () => {
 
   const User = localStorage.getItem("user-id");
   const Username = localStorage.getItem("user-name");
+  const today = new Date().toISOString().split("T")[0];
 
   //Fetching All Tasks from the Database
   useEffect(() => {
@@ -48,7 +49,6 @@ const Dashboard = () => {
     fetchTasks();
   }, []);
   useEffect(() => {
-    const today = new Date().toISOString().split("T")[0];
     const overTask = tasks.filter(task => task.date < today);
     
     overTask.forEach(task => {
