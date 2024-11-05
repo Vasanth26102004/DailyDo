@@ -50,18 +50,22 @@ const Dashboard = () => {
   }, []);
   useEffect(() => {
     const overTask = tasks.filter((task) => {
-      return task.date < today;
+      const today = new Date();
+      const taskDate = new Date(task.date);
+      today.getTime();
+      taskDate.getTime();
+      return taskDate + 24 * 60 * 60 * 1000 < today;
     });
-    
-    overTask.forEach(task => {
-      console.log(task._id)
+
+    overTask.forEach((task) => {
+      console.log(task._id);
       fetchOverTasks(task);
     });
   }, [tasks]);
 
   const fetchOverTasks = async (task) => {
     try {
-      console.log(task._id)
+      console.log(task._id);
       const response = await fetch(
         `https://daily-do-server.vercel.app/task/deletetask/${task._id}`,
         {
