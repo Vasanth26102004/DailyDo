@@ -30,6 +30,7 @@ const Upload = () => {
       // Prepare form data for image upload
       const formData = new FormData();
       formData.append("user", image);
+        alert(image);
   
       // Upload image
       const uploadResponse = await fetch(`https://daily-do-server.vercel.app/upload`, {
@@ -40,6 +41,7 @@ const Upload = () => {
         body: formData,
       });
   
+      alert(uploadResponse);
       const uploadData = await uploadResponse.json();
   
       if (!uploadData.success) {
