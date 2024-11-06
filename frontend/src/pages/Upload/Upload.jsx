@@ -48,7 +48,7 @@ const Upload = () => {
     const userId = localStorage.getItem("user-id")
 
     if (responseData.success) {
-      product.image = responseData.image_url;
+      user.image = responseData.image_url;
       console.log(user);
       await fetch(`https://daily-do-server.vercel.app/auth/update/${userId}`, {
         method: "POST",
