@@ -34,7 +34,7 @@ app.use("/", (req, res) => {
 
 
 // Create Upload Destination
-const upload = multer({ dest:'upload/' });
+const upload = multer({ dest:'upload/'  });
 
 app.post('/api/image', upload.single('file'), (req, res) => {
   if (!req.file) {
