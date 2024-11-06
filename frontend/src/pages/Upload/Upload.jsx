@@ -31,13 +31,11 @@ const Upload = () => {
       let user = newUser;
 
       const formData = new FormData();
-      formData.append("user", image);
-
-      alert("image");
+      formData.append("file", image);
 
       // Upload image
       const uploadResponse = await fetch(
-        `https://daily-do-server.vercel.app/upload`,
+        `https://daily-do-server.vercel.app/api/image`,
         {
           method: "POST",
           headers: {
@@ -51,7 +49,6 @@ const Upload = () => {
           responseData = data;
         });
 
-      alert("uploadResponse");
 
       const userId = localStorage.getItem("user-id");
 
@@ -85,7 +82,7 @@ const Upload = () => {
     <div className="upload-container">
       <img class="background" src={shape} alt="" />
       <h4 className="upload-header">Update Yoyr Profile on Here!</h4>
-      <form className="upload-field">
+      <div className="upload-field">
         <p>Profile Picture</p>
         <label htmlFor="file-input">
           <img
@@ -119,15 +116,18 @@ const Upload = () => {
           onChange={changeHandler}
           placeholder="New E-Mail Address"
         />
-        <button id="submit-button" type="submit" onClick={handleSubmit}>
+        <button
+          id="submit-button"
+          onClick={() => {
+            handleSubmit();
+          }}
+        >
           Submit
         </button>
         <Link to="/dashboard">
-          <button id="cancel-button" type="cancel">
-            Cancel
-          </button>
+          <button id="cancel-button">Cancel</button>
         </Link>
-      </form>
+      </div>
     </div>
   );
 };

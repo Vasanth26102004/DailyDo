@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import multer from "multer";
 import path from "path";
+import multer from 'multer';
 
 import { ENV_VARS } from "./config/envVars.js";
 import connectDB from "./config/db.js";
@@ -15,11 +15,7 @@ ENV_VARS;
 // Middleware
 app.use(express.json());
 app.use(
-  cors({
-    origin: "https://daily-do-app.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    maxAge: 3600,
-  })
+  cors()
 );
 
 // Database connection
@@ -32,22 +28,18 @@ app.use("/", (req, res) => {
   res.send("Welcome to the API");
 });
 
-// Image Engine
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    cb(null, `${path.extname(file.originalname)}`);
-  },
-});
-
-const upload = multer({ storage });
 
 // Create Upload Destination
-app.use("/images", express.static("upload/images"));
-app.post("/upload", upload.single("user"), (req, res) => {
+const upload = multer({ dest:'upload/' });
+
+app.post('/api/image', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file uploaded" });
+  }
   res.json({
     success: 1,
-    image_url: `https://daily-do-server.vercel.app/images/${req.file.filename}`,
+    file: req.file,
+    message: "File uploaded successfully",
   });
 });
 
