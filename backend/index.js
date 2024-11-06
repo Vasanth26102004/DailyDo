@@ -33,30 +33,21 @@ app.use("/", (req, res) => {
 });
 
 // Image Engine
-const storage = async () => {
-  try {
-    console.log("storage");
-    multer.diskStorage({
-      destination: "./upload/images",
-      filename: (req, file, cb) => {
-        return cb(
-          null,
-          `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
-        );
-      },
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-const upload = multer({ storage: storage });
+const storage = multer.diskStorage({
+  destination: "./upload/images",
+  filename: (req, file, cb) => {
+    cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+const upload = multer({ storage });
 
 // Create Upload Destination
 app.use("/images", express.static("upload/images"));
 app.post("/upload", upload.single("user"), (req, res) => {
   res.json({
     success: 1,
-    image_url: "https://daily-do-server.vercel.app/images/${req.file.filename}",
+    image_url: `https://daily-do-server.vercel.app/images/${req.file.filename}`,
   });
 });
 
