@@ -326,9 +326,9 @@ const Dashboard = () => {
           <div>Loading...</div>
         ) : (
           <div className="task-element">
-            {dolist.length > 0 ? (
+            {tasks.length > 0 ? (
               <div>
-                {todayTask(dolist)}
+                {todayTask(tasks)}
                 {tommarowTask(tasks)}
                 {secdayTask(tasks)}
                 {thrdayTask(tasks)}
