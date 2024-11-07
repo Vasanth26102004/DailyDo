@@ -6,74 +6,48 @@ import upload_area from "../../assets/upload_area.svg";
 import shape from "../../assets/shape-blue.png";
 
 const Upload = () => {
-  const [image, setImage] = useState(false);
-  const [newUser, setNewUser] = useState({
-    image: "",
-    username: "",
+  const [user, setUser] = useState({
+    name: "",
     email: "",
   });
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setNewUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
+  const userId = localStorage.getItem("user-id");
+
+  useEffect(() => {
+    fetch(`https://daily-do-server.vercel.app/auth/update/${userId}`)
+      .then((response) => response.json())
+      .then((data) => setUser(data.user))
+      .catch((error) => console.error("Error fetching user data:", error));
+  }, [userId]);
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const imagehandler = (e) => {
-    setImage(e.target.files[0]);
-  };
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      let responseData;
-      let user = newUser;
-
-      const formData = new FormData();
-      formData.append("file", image);
-
-      // Upload image
-      const uploadResponse = await fetch(
-        `https://daily-do-server.vercel.app/api/image`,
+      const response = await fetch(
+        `https://your-server.com/auth/update/${userId}`,
         {
           method: "POST",
           headers: {
+            "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: formData,
+          body: JSON.stringify(user),
         }
-      )
-        .then((resp) => resp.json())
-        .then((data) => {
-          responseData = data;
-        });
+      );
 
-
-      const userId = localStorage.getItem("user-id");
-
-      if (responseData.success) {
-        user.image = responseData.image_url;
-        await fetch(
-          `https://daily-do-server.vercel.app/auth/update/${userId}`,
-          {
-            method: "POST",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          }
-        )
-          .then((resp) => resp.json())
-          .then((data) => {
-            data.success
-              ? alert("Profile Updated")
-              : alert("Profile update failed");
-          });
-      }
+      const data = await response.json();
+      data.success
+        ? res.send("Profile updated successfully")
+        : res.send("Failed to update profile");
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error("Error updating profile:", error);
       alert("An error occurred. Please try again.");
     }
   };
@@ -82,29 +56,14 @@ const Upload = () => {
     <div className="upload-container">
       <img class="background" src={shape} alt="" />
       <h4 className="upload-header">Update Yoyr Profile on Here!</h4>
-      <div className="upload-field">
-        <p>Profile Picture</p>
-        <label htmlFor="file-input">
-          <img
-            src={image ? URL.createObjectURL(image) : upload_area}
-            className="upload-thumbnail"
-            alt="Upload Area"
-          />
-        </label>
-        <input
-          onChange={imagehandler}
-          type="file"
-          name="image"
-          id="file-input"
-          hidden
-        />
+      <form onsubmit={handleSubmit} className="upload-field">
         <p>Username</p>
         <input
           className="username"
           type="text"
           name="username"
           value={newUser.username}
-          onChange={changeHandler}
+          onChange={handleChange}
           placeholder="New Username"
         />
         <p>E-Mail</p>
@@ -113,21 +72,16 @@ const Upload = () => {
           type="email"
           name="email"
           value={newUser.email}
-          onChange={changeHandler}
+          onChange={handleChange}
           placeholder="New E-Mail Address"
         />
-        <button
-          id="submit-button"
-          onClick={() => {
-            handleSubmit();
-          }}
-        >
+        <button id="submit-button" type="submit">
           Submit
         </button>
         <Link to="/dashboard">
           <button id="cancel-button">Cancel</button>
         </Link>
-      </div>
+      </form>
     </div>
   );
 };

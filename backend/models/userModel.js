@@ -15,11 +15,6 @@ const User = mongoose.model("User",
       type: String,
       required: true,
     },
-    image: {
-      type: String,
-      required: true,
-      default:  " ",
-    },
     date: {
       type: Date,
       default: Date.now,

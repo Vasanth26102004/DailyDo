@@ -32,21 +32,6 @@ app.use("/", (req, res) => {
   res.send("Welcome to the API");
 });
 
-
-// Create Upload Destination
-const upload = multer({ dest:'upload/'  });
-
-app.post('/api/image', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
-  }
-  res.json({
-    success: 1,
-    file: req.file,
-    message: "File uploaded successfully",
-  });
-});
-
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

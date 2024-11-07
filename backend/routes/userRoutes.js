@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Route to handle user profile update
-router.post("/auth/update/:_id", async (req, res) => {
+router.post("/update/:_id", async (req, res) => {
   const { _id } = req.params;
   const updatedUserData = req.body;
 
