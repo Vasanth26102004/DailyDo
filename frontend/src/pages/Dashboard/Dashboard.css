@@ -19,15 +19,28 @@
 }
 .user-image {
   margin-top: 5rem;
-  height: 90px;
-  width: 90px;
+  height: 80px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: #0dd2ec;
+  color: white;
   border-radius: 50%;
-  border: 1px solid #585858;
+  border: 5px solid #dddddd;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 50px;
 }
-.user-text {
+.user-text{
   color: white;
   letter-spacing: 0.3px;
+}
+.user-mail {
+  color: #fff;
+  letter-spacing: .2px;
+  font-size: 12px;
+  font-weight: 700;
 }
 .time-tone {
   position: relative;
@@ -121,7 +134,7 @@
   height: 50px;
   display: flex;
   justify-content: center;
-  align-items: center ;
+  align-items: center;
   border: 2px solid #8d8d8db2;
-  border-radius:10px;
+  border-radius: 10px;
 }

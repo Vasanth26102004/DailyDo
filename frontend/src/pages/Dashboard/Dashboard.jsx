@@ -142,7 +142,7 @@ const Dashboard = () => {
       if (!response.ok) {
         console.error("Network response was not ok");
       }
-      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== _id));
     } catch (error) {
       setError(error.message);
     }
@@ -298,7 +298,7 @@ const Dashboard = () => {
           <h1 className="user-image">{Username.charAt(0).toUpperCase()}</h1>
         </Link>
         <h4 className="user-text">Welcome {Username}</h4>
-        <p>{Usermail}</p>
+        <p className="user-mail">{Usermail}</p>
       </div>
 
       {/*SECTION FOR CLOCK*/}
@@ -326,9 +326,9 @@ const Dashboard = () => {
           <div>Loading...</div>
         ) : (
           <div className="task-element">
-            {tasks.length > 0 ? (
+            {dolist.length > 0 ? (
               <div>
-                {todayTask(tasks)}
+                {todayTask(dolist)}
                 {tommarowTask(tasks)}
                 {secdayTask(tasks)}
                 {thrdayTask(tasks)}

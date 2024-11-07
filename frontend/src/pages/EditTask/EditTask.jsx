@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import "./EditTask.css";
-import { TaskList } from "../TaskListContext/TaskListContext.jsx";
 import shape from "../../assets/shape-blue.png";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { TaskList } from "../TaskListContext/TaskListContext.jsx";
 
 const EditTask = () => {
   const { tasks, setTasks } = useContext(TaskList);
@@ -13,7 +13,8 @@ const EditTask = () => {
     time: "",
   });
   const navigate = useNavigate();
-
+  const {taskId} = useParams();
+  console.log(taskId)
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setNewTask((prevTask) => Object.assign({}, prevTask, { [name]: value }));
@@ -28,7 +29,7 @@ const EditTask = () => {
 
     try {
       const response = await fetch(
-        "https://daily-do-server.vercel.app/task/addtask",
+        `https://daily-do-server.vercel.app/task/edittask/${taskId}`,
         {
           method: "POST",
           headers: {
@@ -63,7 +64,7 @@ const EditTask = () => {
 
   return (
     <div className="addTask-content">
-      <img class="background" src={shape} alt=""/>
+      <img className="background" src={shape} alt=""/>
       <h4 className="addTask-header">Update Your Task Here!</h4>
       <form className="task-input" onSubmit={handleSubmit}>
         <p>

@@ -9,8 +9,6 @@ const TaskContent = (props) => {
   const [isActive, setIsActive] = useState(false);
   const [active, setActive] = useState(false);
 
-  console.log(active);
-
   const taskDone = () => {
     if (props.onDone) {
       props.onDone(props.id);
@@ -22,7 +20,6 @@ const TaskContent = (props) => {
       props.onDelete(props.id);
     }
   };
-  const taskEdit = () => {};
 
   const toggleActive = () => {
     setActive((prevActive) => !prevActive);
@@ -52,7 +49,9 @@ const TaskContent = (props) => {
           </div>
           <div className="taskcontent-btns">
             <img onClick={taskDone} src={check} alt="Mark as done" />
-            <img onClick={taskEdit} src={edit} alt="edit Task" />
+            <Link to={`/edittask/${props.id}`}>
+              <img src={edit} alt="edit Task" />
+            </Link>
             <img onClick={taskDelete} src={clear} alt="Delete task" />
           </div>
         </>
