@@ -6,16 +6,7 @@ import check from "../../assets/donebutton.png";
 import edit from "../../assets/editbutton.png";
 import clear from "../../assets/deletebutton.png";
 
-const TaskContent = ({
-  id,
-  title,
-  description,
-  time,
-  date,
-  done,
-  onDone,
-  onDelete,
-}) => {
+const TaskContent = (props) => {
   const [isTaskDone, setIsTaskDone] = useState(done);
   const [showDetails, setShowDetails] = useState(false);
 
