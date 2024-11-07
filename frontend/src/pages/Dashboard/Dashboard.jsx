@@ -295,7 +295,7 @@ const Dashboard = () => {
       {/*SECTION FOR USER DETAIL*/}
       <div className="dashboard-header">
         <Link to="/upload">
-          <h1 className="user-image">{username.charAt(0).toUpperCase()}</h1>
+          <h1 className="user-image">{Username.charAt(0).toUpperCase()}</h1>
         </Link>
         <h4 className="user-text">Welcome {Username}</h4>
         <p>{Usermail}</p>
