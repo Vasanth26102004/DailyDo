@@ -6,7 +6,16 @@ import check from "../../assets/donebutton.png";
 import edit from "../../assets/editbutton.png";
 import clear from "../../assets/deletebutton.png";
 
-const TaskContent = ({ id, title, description, time, date, done, onDone, onDelete }) => {
+const TaskContent = ({
+  id,
+  title,
+  description,
+  time,
+  date,
+  done,
+  onDone,
+  onDelete,
+}) => {
   const [isTaskDone, setIsTaskDone] = useState(done);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -32,24 +41,29 @@ const TaskContent = ({ id, title, description, time, date, done, onDone, onDelet
       id={`task-${id}`}
       className={`taskcontent ${isTaskDone && !showDetails ? "active" : ""}`}
     >
-      <div className="taskcontent-task" onClick={toggleDetails}>
-        <h2 className="taskcontent-title">{title}</h2>
-        {showDetails && (
-          <>
-            <p className="taskcontent-description">{description}</p>
-            <h3 className="taskcontent-time">{time}</h3>
-            <h3 className="taskcontent-date">{date}</h3>
-          </>
-        )}
-      </div>
-      {!showDetails && (
-        <div className="taskcontent-btns">
-          <img onClick={handleTaskDone} src={check} alt="Mark as done" />
-          <Link to={`/edittask/${id}`}>
-            <img src={edit} alt="Edit Task" />
-          </Link>
-          <img onClick={handleTaskDelete} src={clear} alt="Delete Task" />
+      {showDetails ? (
+        <div className="taskcontent-task" onClick={toggleActive}>
+          <h2 className="taskcontent-title">{props.title}</h2>
+          <h2 className="taskcontent-title">{props.description}</h2>
+          <h3 className="taskcontent-time">{props.time}</h3>
+          <h3 className="taskcontent-time">{props.date}</h3>
         </div>
+      ) : (
+        <>
+          <div className="taskcontent-task" onClick={toggleActive}>
+            <h2 className="taskcontent-title" max-width="150px">
+              {props.title}
+            </h2>
+            <h3 className="taskcontent-time">{props.time}</h3>
+          </div>
+          <div className="taskcontent-btns">
+            <img onClick={taskDone} src={check} alt="Mark as done" />
+            <Link to={`/edittask/${props.id}`}>
+              <img src={edit} alt="edit Task" />
+            </Link>
+            <img onClick={taskDelete} src={clear} alt="Delete task" />
+          </div>
+        </>
       )}
     </div>
   );
