@@ -32,7 +32,7 @@ const TaskContent = ({
     }
   };
 
-  const toggleDetails = () => {
+  const toggleActive = () => {
     setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
