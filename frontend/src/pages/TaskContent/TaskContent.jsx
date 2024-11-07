@@ -1,63 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import "./TaskContent.css";
 import check from "../../assets/donebutton.png";
 import edit from "../../assets/editbutton.png";
 import clear from "../../assets/deletebutton.png";
-import { Link } from "react-router-dom";
 
-const TaskContent = (props) => {
-  const [isActive, setIsActive] = useState(false);
-  const [active, setActive] = useState(false);
+const TaskContent = ({ id, title, description, time, date, done, onDone, onDelete }) => {
+  const [isTaskDone, setIsTaskDone] = useState(done);
+  const [showDetails, setShowDetails] = useState(false);
 
-  const taskDone = () => {
-    if (props.onDone) {
-      props.onDone(props.id);
-      setIsActive(true);
-    }
-  };
-  const taskDelete = () => {
-    if (props.onDelete) {
-      props.onDelete(props.id);
+  const handleTaskDone = () => {
+    if (onDone) {
+      onDone(id);
+      setIsTaskDone(true);
     }
   };
 
-  const toggleActive = () => {
-    setActive((prevActive) => !prevActive);
+  const handleTaskDelete = () => {
+    if (onDelete) {
+      onDelete(id);
+    }
+  };
+
+  const toggleDetails = () => {
+    setShowDetails((prevShowDetails) => !prevShowDetails);
   };
 
   return (
     <div
-      id={`task-${props.id}`}
-      className={`taskcontent ${
-        (isActive || props.done) && !active ? "active" : ""
-      }`}
+      id={`task-${id}`}
+      className={`taskcontent ${isTaskDone && !showDetails ? "active" : ""}`}
     >
-      {active ? (
-        <div className="taskcontent-task" onClick={toggleActive}>
-          <h2 className="taskcontent-title">{props.title}</h2>
-          <h2 className="taskcontent-title">{props.description}</h2>
-          <h3 className="taskcontent-time">{props.time}</h3>
-          <h3 className="taskcontent-time">{props.date}</h3>
+      <div className="taskcontent-task" onClick={toggleDetails}>
+        <h2 className="taskcontent-title">{title}</h2>
+        {showDetails && (
+          <>
+            <p className="taskcontent-description">{description}</p>
+            <h3 className="taskcontent-time">{time}</h3>
+            <h3 className="taskcontent-date">{date}</h3>
+          </>
+        )}
+      </div>
+      {!showDetails && (
+        <div className="taskcontent-btns">
+          <img onClick={handleTaskDone} src={check} alt="Mark as done" />
+          <Link to={`/edittask/${id}`}>
+            <img src={edit} alt="Edit Task" />
+          </Link>
+          <img onClick={handleTaskDelete} src={clear} alt="Delete Task" />
         </div>
-      ) : (
-        <>
-          <div className="taskcontent-task" onClick={toggleActive}>
-            <h2 className="taskcontent-title" max-width="150px">
-              {props.title}
-            </h2>
-            <h3 className="taskcontent-time">{props.time}</h3>
-          </div>
-          <div className="taskcontent-btns">
-            <img onClick={taskDone} src={check} alt="Mark as done" />
-            <Link to={`/edittask/${props.id}`}>
-              <img src={edit} alt="edit Task" />
-            </Link>
-            <img onClick={taskDelete} src={clear} alt="Delete task" />
-          </div>
-        </>
       )}
     </div>
   );
+};
+
+// PropTypes for validation
+TaskContent.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  time: PropTypes.string,
+  date: PropTypes.string,
+  done: PropTypes.bool,
+  onDone: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default TaskContent;
