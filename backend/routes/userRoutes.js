@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Route to handle user profile update
-router.post("/update/:_id", async (req, res) => {
+/*router.post("/update/:_id", async (req, res) => {
   const { _id } = req.params;
   const updatedUserData = req.body;
 
@@ -91,7 +91,7 @@ router.post("/update/:_id", async (req, res) => {
     console.error("Error updating user profile:", error);
     res.status(500).json({ success: 0, message: "Internal Server Error" });
   }
-});
+});*/
 
 
 export default router;
